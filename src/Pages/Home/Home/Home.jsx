@@ -4,6 +4,7 @@ import HowItWork from "../HowItWork/HowItWork";
 import OurServices from "../OurServices/OurServices";
 import SalesPartner from "../SalesPartner/SalesPartner";
 import Merchant from "../Merchant/Merchant";
+import CommentSwiper from "../CommentSwiper/CommentSwiper";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <OurServices />
       <SalesPartner />
       <Merchant />
+      <CommentSwiper />
     </div>
   );
 };
