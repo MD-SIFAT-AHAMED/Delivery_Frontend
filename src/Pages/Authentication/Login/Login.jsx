@@ -69,6 +69,9 @@ const Login = () => {
           {errors.password && (
             <p className="text-red-500 text-sm">{errors.password.message}</p>
           )}
+          <Link to={"/fotgotPassword"} className="underline text-gray-600">
+            Fotgot Password
+          </Link>
         </div>
         {/* Submit Button */}
         <button className="btn btn-primary w-full text-black">Log In</button>
