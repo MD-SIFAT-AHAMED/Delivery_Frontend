@@ -60,9 +60,9 @@ const Navber = () => {
                 >
                   Sign Up
                 </Link>
-                <p className="bg-primary text-gray-800 px-3 py-2 rounded-xl font-medium">
+                <Link to={"/login"} className="bg-primary text-gray-800 px-3 py-2 rounded-xl font-medium">
                   Log In
-                </p>
+                </Link>
               </div>
             </div>
           </div>
