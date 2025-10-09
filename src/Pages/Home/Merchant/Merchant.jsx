@@ -1,0 +1,40 @@
+import React from "react";
+import locationImg from "../../../assets/location-merchant.png";
+const Merchant = () => {
+  return (
+    <div className="bg-gray-100 my-8">
+      <div className="max-w-screen-2xl w-11/12 mx-auto ">
+        <div
+          data-aos="zoom-in"
+          data-aos-duration="1000"
+          data-aos-once="false"
+          className="bg-[#03373D] bg-[url('assets/be-a-merchant-bg.png')] bg-no-repeat rounded-4xl p-5 md:p-20 overflow-hidden"
+        >
+          <div className="hero-content flex-col lg:flex-row-reverse">
+            <img src={locationImg} className="w-70 md:w-[400px]" />
+            <div>
+              <h1 className=" text-2xl md:text-4xl text-white font-bold">
+                Merchant and Customer Satisfaction is Our First Priority
+              </h1>
+              <p className="py-6 text-[#DADADA]">
+                We offer the lowest delivery charge with the highest value along
+                with 100% safety of your product. Pathao courier delivers your
+                parcels in every corner of Bangladesh right on time.
+              </p>
+              <div className="flex flex-col md:flex-row gap-3">
+                <button className="btn btn-primary font-bold text-black rounded-full">
+                  Become a Merchant
+                </button>
+                <button className="btn btn-primary text-primary btn-outline hover:text-black font-bold rounded-full">
+                  Earn with Profast Courier
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Merchant;
