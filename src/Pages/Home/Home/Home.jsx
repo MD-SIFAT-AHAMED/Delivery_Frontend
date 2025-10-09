@@ -1,10 +1,12 @@
 import React from "react";
 import Banner from "../Banner/Banner";
+import HowItWork from "../HowItWork/HowItWork";
 
 const Home = () => {
   return (
-    <div className="max-w-screen-2xl w-11/12 mx-auto">
+    <div className="">
       <Banner />
+      <HowItWork />
     </div>
   );
 };

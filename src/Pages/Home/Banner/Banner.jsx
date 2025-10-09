@@ -12,7 +12,7 @@ const Banner = () => {
   const banners = [banner2, banner3, banner1];
 
   return (
-    <section className="w-full">
+    <section className="max-w-screen-2xl w-11/12 mx-auto">
       <Swiper
         modules={[Pagination, Autoplay]}
         pagination={{ clickable: true }}
