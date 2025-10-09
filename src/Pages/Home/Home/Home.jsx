@@ -5,6 +5,7 @@ import OurServices from "../OurServices/OurServices";
 import SalesPartner from "../SalesPartner/SalesPartner";
 import Merchant from "../Merchant/Merchant";
 import CommentSwiper from "../CommentSwiper/CommentSwiper";
+import FaqSection from "../FaqSection/FaqSection";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <SalesPartner />
       <Merchant />
       <CommentSwiper />
+      <FaqSection />
     </div>
   );
 };
