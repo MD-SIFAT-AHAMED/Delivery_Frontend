@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import ProFastLogo from "../../Pages/Shared/ProFastLogo/ProFastLogo";
 import { RxHamburgerMenu } from "react-icons/rx";
 
@@ -54,9 +54,12 @@ const Navber = () => {
               <ul className="hidden lg:flex gap-4">{links}</ul>
 
               <div className="flex gap-2">
-                <p className="bg-primary text-gray-800 font-medium px-3 py-2 rounded-xl">
+                <Link
+                  to={"/signUp"}
+                  className="bg-primary text-gray-800 font-medium px-3 py-2 rounded-xl"
+                >
                   Sign Up
-                </p>
+                </Link>
                 <p className="bg-primary text-gray-800 px-3 py-2 rounded-xl font-medium">
                   Log In
                 </p>
