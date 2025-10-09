@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import uploadImg from "../../../assets/image-upload-icon.png";
+import LoginGoogle from "../LoginGoogle/LoginGoogle";
+import { Link } from "react-router";
 
 const SignUp = () => {
   const {
@@ -27,7 +29,7 @@ const SignUp = () => {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="fieldset w-xs md:w-md **:focus:outline-none **:focus:border-primary space-y-3"
+        className="fieldset w-xs md:w-md **:focus:outline-none **:focus:border-primary space-y-1"
       >
         {/* Name */}
         <div>
@@ -111,10 +113,17 @@ const SignUp = () => {
         </div>
 
         {/* Submit Button */}
-        <button className="btn btn-primary w-full text-black mt-4">
-          Sign Up
-        </button>
+        <button className="btn btn-primary w-full text-black">Sign Up</button>
+        <p className="text-base">
+          Already have an account?{" "}
+          <Link className="text-primary underline" to={"/Login"}>
+            Login
+          </Link>
+        </p>
+        <span className="text-center text-base">Or</span>
       </form>
+      {/* Login with Goggle */}
+      <LoginGoogle />
     </div>
   );
 };
