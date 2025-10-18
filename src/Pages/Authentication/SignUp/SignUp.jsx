@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import uploadImg from "../../../assets/image-upload-icon.png";
 import LoginGoogle from "../LoginGoogle/LoginGoogle";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import toast from "react-hot-toast";
 
@@ -21,6 +21,8 @@ const SignUp = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [profileImg, setProfileImg] = useState("");
   const fileInputRef = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     const userData = {
@@ -35,6 +37,7 @@ const SignUp = () => {
           .then((data) => {
             console.log(data);
             toast.success("Login Successfuly");
+            navigate(location.state?.from || "/");
           })
           .catch((error) => {
             console.log(error);
@@ -42,10 +45,10 @@ const SignUp = () => {
         console.log(data);
       })
       .catch((error) => {
-        if(error.code === "auth/email-already-in-use"){
-          toast.error("Already Used Email")
+        if (error.code === "auth/email-already-in-use") {
+          toast.error("Already Used Email");
         }
-        console.log(error)
+        console.log(error);
       });
 
     // reset(); // reset form

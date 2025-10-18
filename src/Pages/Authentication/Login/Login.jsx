@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import LoginGoogle from "../LoginGoogle/LoginGoogle";
 import useAuth from "../../../Hooks/useAuth";
 import toast from "react-hot-toast";
@@ -14,13 +14,16 @@ const Login = () => {
     formState: { errors },
     reset,
   } = useForm();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { loginEmailWithPass } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (data) => {
     loginEmailWithPass(data.email, data.password)
       .then(() => {
-        toast.success("Login Successfully");
+      toast.success("Login Successfully");p
+        navigate(location.state?.from || "/");
       })
       .catch((error) => {
         if (error.code === "auth/invalid-credential") {
