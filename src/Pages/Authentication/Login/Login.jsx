@@ -5,6 +5,8 @@ import { FaGoogle } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
 import LoginGoogle from "../LoginGoogle/LoginGoogle";
+import useAuth from "../../../Hooks/useAuth";
+import toast from "react-hot-toast";
 const Login = () => {
   const {
     register,
@@ -12,13 +14,23 @@ const Login = () => {
     formState: { errors },
     reset,
   } = useForm();
-
+  const { loginEmailWithPass } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (data) => {
-    console.log("Form Data:", data);
+    loginEmailWithPass(data.email, data.password)
+      .then(() => {
+        toast.success("Login Successfully");
+      })
+      .catch((error) => {
+        if (error.code === "auth/invalid-credential") {
+          toast.error("Invalid Credential");
+        }
+      });
+
     reset(); // reset form
   };
+
   return (
     <div className="mt-10 md:mt-0">
       <h3 className="text-2xl md:text-4xl font-bold">Welcome Back</h3>
