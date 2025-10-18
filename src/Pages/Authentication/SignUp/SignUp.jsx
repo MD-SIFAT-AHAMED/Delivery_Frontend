@@ -1,31 +1,86 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import uploadImg from "../../../assets/image-upload-icon.png";
 import LoginGoogle from "../LoginGoogle/LoginGoogle";
 import { Link } from "react-router";
+import useAuth from "../../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
     reset,
   } = useForm();
+  const { userProfileUpdate, createAccount } = useAuth();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [profileImg, setProfileImg] = useState("");
+  const fileInputRef = useRef(null);
 
   const onSubmit = (data) => {
-    console.log("Form Data:", data);
-    reset(); // reset form
+    const userData = {
+      displayName: data.name,
+      photoUrl: profileImg,
+    };
+
+    createAccount(data.email, data.password)
+      .then((data) => {
+        // Update User profile in firebase
+        userProfileUpdate(userData)
+          .then((data) => {
+            console.log(data);
+            toast.success("Login Successfuly");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        console.log(data);
+      })
+      .catch((error) => {
+        if(error.code === "auth/email-already-in-use"){
+          toast.error("Already Used Email")
+        }
+        console.log(error)
+      });
+
+    // reset(); // reset form
   };
+
+  const handlerImgUpload = () => {
+    fileInputRef.current.click();
+  };
+
+  const handlerFileChange = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+  };
+
+  const password = watch("password");
 
   return (
     <div className="mt-10 md:mt-0">
       <h3 className="text-2xl md:text-4xl font-bold">Create an Account</h3>
       <p className="font-medium">Register with Profast</p>
-      <img src={uploadImg} className="my-2" alt="Upload Icon" />
+      {/* Upload Image Icon  */}
+      <img
+        onClick={handlerImgUpload}
+        src={uploadImg}
+        className="my-2 cursor-pointer"
+        alt="Upload Icon"
+      />
+
+      {/* hidden file input */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        className="hidden"
+        onChange={handlerFileChange}
+      />
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -97,6 +152,8 @@ const SignUp = () => {
             className="input input-bordered w-full pr-10"
             {...register("confirmPassword", {
               required: "Please confirm password",
+              validate: (value) =>
+                value === password || "Passwords do not match",
             })}
           />
           <span
