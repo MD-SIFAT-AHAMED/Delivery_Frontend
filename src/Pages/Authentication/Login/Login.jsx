@@ -22,7 +22,7 @@ const Login = () => {
   const onSubmit = (data) => {
     loginEmailWithPass(data.email, data.password)
       .then(() => {
-      toast.success("Login Successfully");p
+        toast.success("Login Successfully");
         navigate(location.state?.from || "/");
       })
       .catch((error) => {

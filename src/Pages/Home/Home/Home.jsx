@@ -6,10 +6,11 @@ import SalesPartner from "../SalesPartner/SalesPartner";
 import Merchant from "../Merchant/Merchant";
 import CommentSwiper from "../CommentSwiper/CommentSwiper";
 import FaqSection from "../FaqSection/FaqSection";
+import useClickOutside from "../../../Hooks/useClickOutside";
 
 const Home = () => {
   return (
-    <div className="">
+    <div>
       <Banner />
       <HowItWork />
       <OurServices />

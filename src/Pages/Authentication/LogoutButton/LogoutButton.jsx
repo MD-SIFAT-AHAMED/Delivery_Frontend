@@ -1,8 +1,22 @@
 import { useState } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
+import useAuth from "../../../Hooks/useAuth";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 const LogoutButton = ({ handleLogout }) => {
   const [showModal, setShowModal] = useState(false);
+  const { logOutUser } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogoutConfrim = () => {
+    logOutUser()
+      .then(() => {
+        toast.success("Logout Successfully");
+        navigate("/");
+      })
+      .catch(() => {});
+  };
 
   return (
     <>
@@ -19,7 +33,7 @@ const LogoutButton = ({ handleLogout }) => {
 
       {/* Confirmation Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white/40 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 w-80 text-center">
             <h2 className="text-lg font-semibold text-gray-800 mb-3">
               Confirm Logout
@@ -36,8 +50,8 @@ const LogoutButton = ({ handleLogout }) => {
               </button>
               <button
                 onClick={() => {
-                  handleLogout();
                   setShowModal(false);
+                  handleLogoutConfrim();
                 }}
                 className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700"
               >

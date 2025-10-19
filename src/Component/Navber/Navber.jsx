@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Link, NavLink } from "react-router";
 import ProFastLogo from "../../Pages/Shared/ProFastLogo/ProFastLogo";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -12,11 +12,14 @@ import {
   FaUserCircle,
   FaChevronDown,
 } from "react-icons/fa";
+import LogoutButton from "../../Pages/Authentication/LogoutButton/LogoutButton";
+import useClickOutside from "../../Hooks/useClickOutside";
 
 const Navber = () => {
   const { user } = useAuth();
-  console.log(user.displayName);
-
+  const [open, setOpen] = useState(false);
+  const ref = useClickOutside(() => setOpen(false));
+  
   const links = (
     <>
       <li>
@@ -67,8 +70,11 @@ const Navber = () => {
               <ul className="hidden lg:flex gap-4">{links}</ul>
 
               {user ? (
-                <div className="relative group">
-                  <p className="flex items-center gap-2 text-sm border border- px-3 py-2 rounded text-gray-700 font-medium cursor-pointer transition">
+                <div ref={ref} className="relative ">
+                  <p
+                    onClick={() => setOpen(!open)}
+                    className="flex items-center gap-2 text-sm border px-3 py-2 rounded text-gray-700 font-medium cursor-pointer transition"
+                  >
                     <FaUserCircle className="text-lg" />
                     <span className="italic">
                       Welcome,{" "}
@@ -76,56 +82,51 @@ const Navber = () => {
                     </span>
                     <FaChevronDown className="text-xs opacity-80" />
                   </p>
+
                   {/* Dropdown menu */}
 
-                  <div className="absolute z-10 right-0 mt-2 w-44 bg-white shadow-md rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <ul className="text-sm text-gray-700">
-                      {/* Profile */}
-                      <li>
-                        <Link
-                          to="/profile"
-                          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
-                        >
-                          <FaUser className="text-gray-500" />
-                          Profile
-                        </Link>
-                      </li>
-
-                      {/* Conditional dashboard or my deliveries */}
-                      {user?.role === "admin" || user?.role === "rider" ? (
+                  {open && (
+                    <div className="absolute  z-10 right-0 mt-2 w-44 bg-white shadow-md rounded-md group-hover:opacity-100 transition-opacity duration-200">
+                      <ul className="text-sm text-gray-700">
+                        {/* Profile */}
                         <li>
                           <Link
-                            to="/dashboard"
+                            to="/profile"
                             className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
                           >
-                            <FaTachometerAlt className="text-gray-500" />
-                            Dashboard
+                            <FaUser className="text-gray-500" />
+                            Profile
                           </Link>
                         </li>
-                      ) : (
-                        <li>
-                          <Link
-                            to="/my-deliveries"
-                            className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
-                          >
-                            <FaBox className="text-gray-500" />
-                            My Deliveries
-                          </Link>
-                        </li>
-                      )}
 
-                      {/* Logout */}
-                      <li>
-                        <button
-                          onClick={"handleLogout"}
-                          className="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
-                        >
-                          <FaSignOutAlt className="text-red-600" />
-                          Logout
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
+                        {/* Conditional dashboard or my deliveries */}
+                        {user?.role === "admin" || user?.role === "rider" ? (
+                          <li>
+                            <Link
+                              to="/dashboard"
+                              className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
+                            >
+                              <FaTachometerAlt className="text-gray-500" />
+                              Dashboard
+                            </Link>
+                          </li>
+                        ) : (
+                          <li>
+                            <Link
+                              to="/my-deliveries"
+                              className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
+                            >
+                              <FaBox className="text-gray-500" />
+                              My Deliveries
+                            </Link>
+                          </li>
+                        )}
+
+                        {/* Logout */}
+                        <LogoutButton />
+                      </ul>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="flex gap-2">
