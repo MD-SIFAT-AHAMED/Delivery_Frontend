@@ -19,11 +19,11 @@ const Navber = () => {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const ref = useClickOutside(() => setOpen(false));
-  
+
   const links = (
     <>
       <li>
-        <NavLink to={"/Services"}>Services</NavLink>
+        <NavLink to={"/services"}>Services</NavLink>
       </li>
       <li>
         <NavLink to={"/coverage"}>Coverage</NavLink>

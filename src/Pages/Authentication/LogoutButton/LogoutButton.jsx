@@ -4,7 +4,7 @@ import useAuth from "../../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
-const LogoutButton = ({ handleLogout }) => {
+const LogoutButton = () => {
   const [showModal, setShowModal] = useState(false);
   const { logOutUser } = useAuth();
   const navigate = useNavigate();

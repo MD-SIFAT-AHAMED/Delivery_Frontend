@@ -5,6 +5,8 @@ import AuthLayout from "../Layout/AuthLayout";
 import Login from "../Pages/Authentication/Login/Login";
 import SignUp from "../Pages/Authentication/SignUp/SignUp";
 import ForgotPassword from "../Pages/Authentication/ForgotPassword/ForgotPassword";
+import PrivateRouter from "../Routes/PrivateRouter";
+import DeliveryLayout from "../Layout/DeliveryLayout";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // Delivery Layout
+  {
+    path: "/my-deliveries",
+    element: (
+      <PrivateRouter>
+        <DeliveryLayout />
+      </PrivateRouter>
+    ),
+  },
+  //Dashboard Layout
 ]);
 
 export default router;
