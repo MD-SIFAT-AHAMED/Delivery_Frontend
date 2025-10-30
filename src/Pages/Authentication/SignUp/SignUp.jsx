@@ -6,6 +6,7 @@ import LoginGoogle from "../LoginGoogle/LoginGoogle";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import useAxios from "../../../Hooks/useAxios";
 
 const SignUp = () => {
   const {
@@ -23,6 +24,7 @@ const SignUp = () => {
   const fileInputRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosInstacne = useAxios();
 
   const onSubmit = (data) => {
     const userData = {
@@ -31,7 +33,22 @@ const SignUp = () => {
     };
 
     createAccount(data.email, data.password)
-      .then((data) => {
+      .then(async () => {
+        // Update userInfo in the database
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+          is_active: true,
+          role: "user", // Default role user
+        };
+
+        const userRes = await axiosInstacne.post(
+          "/api/v1/users/create-user",
+          userInfo
+        );
+
+        console.log(userRes);
+
         // Update User profile in firebase
         userProfileUpdate(userData)
           .then((data) => {
@@ -51,7 +68,7 @@ const SignUp = () => {
         console.log(error);
       });
 
-    // reset(); // reset form
+    reset(); // reset form
   };
 
   const handlerImgUpload = () => {
