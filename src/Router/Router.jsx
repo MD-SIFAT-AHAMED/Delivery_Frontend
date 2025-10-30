@@ -8,6 +8,7 @@ import ForgotPassword from "../Pages/Authentication/ForgotPassword/ForgotPasswor
 import PrivateRouter from "../Routes/PrivateRouter";
 import DeliveryLayout from "../Layout/DeliveryLayout";
 import AboutUs from "../Pages/AboutUs/AboutUs";
+import CoverAge from "../Pages/CoverAge/CoverAge";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,11 @@ const router = createBrowserRouter([
       {
         path: "/AboutUs",
         Component: AboutUs,
+      },
+      {
+        path: "/coverage",
+        Component: CoverAge,
+        loader: () => fetch("./services.json"),
       },
     ],
   },
