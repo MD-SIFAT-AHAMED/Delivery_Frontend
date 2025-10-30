@@ -9,6 +9,7 @@ import PrivateRouter from "../Routes/PrivateRouter";
 import DeliveryLayout from "../Layout/DeliveryLayout";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import CoverAge from "../Pages/CoverAge/CoverAge";
+import BeARider from "../Pages/BeARider/BeARider";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,15 @@ const router = createBrowserRouter([
       {
         path: "/coverage",
         Component: CoverAge,
+        loader: () => fetch("./services.json"),
+      },
+      {
+        path: "/beARider",
+        element: (
+          <PrivateRouter>
+            <BeARider />
+          </PrivateRouter>
+        ),
         loader: () => fetch("./services.json"),
       },
     ],
