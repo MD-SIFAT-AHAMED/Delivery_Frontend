@@ -7,6 +7,7 @@ import SignUp from "../Pages/Authentication/SignUp/SignUp";
 import ForgotPassword from "../Pages/Authentication/ForgotPassword/ForgotPassword";
 import PrivateRouter from "../Routes/PrivateRouter";
 import DeliveryLayout from "../Layout/DeliveryLayout";
+import AboutUs from "../Pages/AboutUs/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+      {
+        path: "/AboutUs",
+        Component: AboutUs,
       },
     ],
   },
