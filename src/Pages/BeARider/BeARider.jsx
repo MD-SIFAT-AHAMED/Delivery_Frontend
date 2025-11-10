@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import riderImg from "../../assets/agent-pending.png";
 import { useLoaderData } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const BeARider = () => {
   const {
@@ -11,9 +12,14 @@ const BeARider = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const axiosSecure = useAxiosSecure();
 
   const onSubmit = (data) => {
     console.log("Rider Form Data:", data);
+    axiosSecure.post("/api/v1/riders/apply-rider", data).then((dataRes) => {
+      console.log(dataRes);
+    });
+
     reset();
   };
 
