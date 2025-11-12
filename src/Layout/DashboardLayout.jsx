@@ -14,7 +14,7 @@ import ProFastLogo from "../Pages/Shared/ProFastLogo/ProFastLogo";
 import logoImg from "../assets/logo.png";
 import Users from "../Pages/Admin/Users/Users";
 
-const DeliveryLayout = () => {
+const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
@@ -56,7 +56,7 @@ const DeliveryLayout = () => {
             to="/riders"
             className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
           >
-            <FaMotorcycle  size={18} />
+            <FaMotorcycle size={18} />
             {isSidebarOpen && <span>Riders</span>}
           </Link>
 
@@ -112,4 +112,4 @@ const DeliveryLayout = () => {
   );
 };
 
-export default DeliveryLayout;
+export default DashboardLayout;

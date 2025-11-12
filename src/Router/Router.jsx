@@ -1,16 +1,17 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../Layout/MainLayout";
+import DashboardLayout from "../Layout/DashboardLayout";
 import Home from "../Pages/Home/Home/Home";
 import AuthLayout from "../Layout/AuthLayout";
 import Login from "../Pages/Authentication/Login/Login";
 import SignUp from "../Pages/Authentication/SignUp/SignUp";
 import ForgotPassword from "../Pages/Authentication/ForgotPassword/ForgotPassword";
 import PrivateRouter from "../Routes/PrivateRouter";
-import DeliveryLayout from "../Layout/DeliveryLayout";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import CoverAge from "../Pages/CoverAge/CoverAge";
 import BeARider from "../Pages/BeARider/BeARider";
 import Users from "../Pages/Admin/Users/Users";
+import RoleProtectedRouter from "../Routes/RoleProtectedRouter";
 
 const router = createBrowserRouter([
   {
@@ -64,11 +65,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <PrivateRouter>
-        <DeliveryLayout />
-      </PrivateRouter>
+      <RoleProtectedRouter allowedRole={["admin", "rider"]}>
+        <DashboardLayout />
+      </RoleProtectedRouter>
     ),
-    
   },
 ]);
 

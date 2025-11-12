@@ -12,6 +12,7 @@ import {
   FaUserCircle,
   FaChevronDown,
 } from "react-icons/fa";
+import { FiGrid } from "react-icons/fi";
 import LogoutButton from "../../Pages/Authentication/LogoutButton/LogoutButton";
 import useClickOutside from "../../Hooks/useClickOutside";
 import useUserRole from "../../Hooks/useUserRole";
@@ -20,8 +21,7 @@ const Navber = () => {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const ref = useClickOutside(() => setOpen(false));
-  const {role} = useUserRole()
-  console.log(role)
+  const { role } = useUserRole();
 
   const links = (
     <>
@@ -103,13 +103,13 @@ const Navber = () => {
                         </li>
 
                         {/* Conditional dashboard or my deliveries */}
-                        {user?.role === "admin" || user?.role === "rider" ? (
+                        {role === "admin" || role === "rider" ? (
                           <li>
                             <Link
                               to="/dashboard"
                               className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
                             >
-                              <FaTachometerAlt className="text-gray-500" />
+                              <FiGrid className="text-gray-500" />
                               Dashboard
                             </Link>
                           </li>
