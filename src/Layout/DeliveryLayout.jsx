@@ -8,9 +8,11 @@ import {
   FaCog,
   FaBox,
   FaSignOutAlt,
+  FaMotorcycle,
 } from "react-icons/fa";
 import ProFastLogo from "../Pages/Shared/ProFastLogo/ProFastLogo";
 import logoImg from "../assets/logo.png";
+import Users from "../Pages/Admin/Users/Users";
 
 const DeliveryLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -54,8 +56,16 @@ const DeliveryLayout = () => {
             to="/riders"
             className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
           >
-            <FaUser size={18} />
+            <FaMotorcycle  size={18} />
             {isSidebarOpen && <span>Riders</span>}
+          </Link>
+
+          <Link
+            to="/users"
+            className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
+          >
+            <FaUser size={18} />
+            {isSidebarOpen && <span>Users</span>}
           </Link>
 
           <Link

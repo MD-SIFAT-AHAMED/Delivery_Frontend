@@ -14,11 +14,14 @@ import {
 } from "react-icons/fa";
 import LogoutButton from "../../Pages/Authentication/LogoutButton/LogoutButton";
 import useClickOutside from "../../Hooks/useClickOutside";
+import useUserRole from "../../Hooks/useUserRole";
 
 const Navber = () => {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const ref = useClickOutside(() => setOpen(false));
+  const {role} = useUserRole()
+  console.log(role)
 
   const links = (
     <>
@@ -113,7 +116,8 @@ const Navber = () => {
                         ) : (
                           <li>
                             <Link
-                              to="/my-deliveries"
+                              // to="/my-deliveries"
+                              to="/dashboard"
                               className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
                             >
                               <FaBox className="text-gray-500" />

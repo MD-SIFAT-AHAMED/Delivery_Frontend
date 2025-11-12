@@ -10,6 +10,7 @@ import DeliveryLayout from "../Layout/DeliveryLayout";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import CoverAge from "../Pages/CoverAge/CoverAge";
 import BeARider from "../Pages/BeARider/BeARider";
+import Users from "../Pages/Admin/Users/Users";
 
 const router = createBrowserRouter([
   {
@@ -59,16 +60,16 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // Delivery Layout
+  //Dashboard Layout
   {
-    path: "/my-deliveries",
+    path: "/dashboard",
     element: (
       <PrivateRouter>
         <DeliveryLayout />
       </PrivateRouter>
     ),
+    
   },
-  //Dashboard Layout
 ]);
 
 export default router;

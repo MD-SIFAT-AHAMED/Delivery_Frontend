@@ -46,12 +46,12 @@ const AuthProvider = ({ children }) => {
           .post("api/v1/users/jwt", userData)
           .then((res) => {
             const token = res.data.token;
-            console.log(token);
+            // console.log(token);
             localStorage.setItem("token", token);
           })
           .catch(() => {});
       }
-      console.log("OnSate user Info", currentUser);
+      // console.log("OnSate user Info", currentUser);
     });
     return () => unSubscribe();
   }, [axiosInstance]);
@@ -62,6 +62,7 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     user,
+    loading,
     logOutUser,
     loginWithGoogle,
     createAccount,
