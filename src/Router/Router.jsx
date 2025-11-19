@@ -69,6 +69,12 @@ const router = createBrowserRouter([
         <DashboardLayout />
       </RoleProtectedRouter>
     ),
+    children: [
+      {
+        path: "users",
+        Component: Users,
+      },
+    ],
   },
 ]);
 
