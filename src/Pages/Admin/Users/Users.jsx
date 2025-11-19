@@ -3,17 +3,18 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchUsers, deleteUser } from "../../../Api/UserApi";
 import { FaEye, FaEdit, FaTrash, FaUserShield } from "react-icons/fa";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import DataTable from "../../../Component/DataTable/DataTable";
 
 const Users = () => {
   const queryClient = useQueryClient();
   const axiosInstance = useAxiosSecure();
 
   // Fetch users
-  const { data: users = [], isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: () => fetchUsers(axiosInstance),
   });
-  console.log(users);
+  console.log(data);
 
   // Delete user mutation
   //   const deleteMutation = useMutation(deleteUser(axiosInstance, ), {
@@ -29,65 +30,76 @@ const Users = () => {
   if (isLoading)
     return <span className="loading loading-spinner text-info"></span>;
 
-  return (
-    <div className="shadow-lg min-w-screen rounded-lg">
-      <table className="table w-full min-w-max">
-        <thead className="bg-base-200">
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Created</th>
-            <th>Updated</th>
-            <th className="text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users?.map((user, idx) => (
-            <tr key={user.id}>
-              <td>{idx + 1}</td>
-              <td className="font-medium">{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.address}</td>
-              <td>
-                <span className="badge badge-outline capitalize">{user.role}</span>
-              </td>
-              <td>
-                {user.is_active ? (
-                  <span className="text-green-500 font-semibold">Active</span>
-                ) : (
-                  <span className="text-red-500 font-semibold">Inactive</span>
-                )}
-              </td>
-              <td>{new Date(user.create_at).toLocaleDateString()}</td>
-              <td>{new Date(user.update_at).toLocaleDateString()}</td>
-              <td className="flex gap-2 justify-center">
-                <button className="btn btn-xs btn-info" title="View">
-                  <FaEye />
-                </button>
-                <button className="btn btn-xs btn-warning" title="Edit">
-                  <FaEdit />
-                </button>
-                <button className="btn btn-xs btn-success" title="Change Role">
-                  <FaUserShield />
-                </button>
-                <button
-                  className="btn btn-xs btn-error"
-                  onClick={() => handleDelete(user.id)}
-                  title="Delete"
-                >
-                  <FaTrash />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+  const columns = [
+    { label: "#", key: "serial" },
+
+    { label: "Name", key: "name", className: "font-medium" },
+
+    { label: "Email", key: "email" },
+
+    { label: "Address", key: "address" },
+
+    {
+      label: "Role",
+      key: "role",
+      render: (value) => (
+        <span className="badge badge-outline capitalize">{value}</span>
+      ),
+    },
+
+    {
+      label: "Status",
+      key: "is_active",
+      render: (value) =>
+        value ? (
+          <span className="text-green-500 font-semibold">Active</span>
+        ) : (
+          <span className="text-red-500 font-semibold">Inactive</span>
+        ),
+    },
+
+    {
+      label: "Created",
+      key: "create_at",
+      render: (value) => new Date(value).toLocaleDateString(),
+    },
+
+    {
+      label: "Updated",
+      key: "update_at",
+      render: (value) => new Date(value).toLocaleDateString(),
+    },
+
+    {
+      label: "Actions",
+      key: "actions",
+      headerClassName: "text-center",
+      render: (_, row) => (
+        <div className="flex gap-2 justify-center">
+          <button className="btn btn-xs btn-info">
+            <FaEye />
+          </button>
+
+          <button className="btn btn-xs btn-warning">
+            <FaEdit />
+          </button>
+
+          <button className="btn btn-xs btn-success">
+            <FaUserShield />
+          </button>
+
+          <button
+            className="btn btn-xs btn-error"
+            onClick={() => handleDelete(row.id)}
+          >
+            <FaTrash />
+          </button>
+        </div>
+      ),
+    },
+  ];
+
+  return <DataTable columns={columns} data={data} />;
 };
 
 export default Users;

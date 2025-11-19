@@ -15,7 +15,7 @@ import logoImg from "../assets/logo.png";
 import Users from "../Pages/Admin/Users/Users";
 
 const DashboardLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="flex w-full bg-base-100">
