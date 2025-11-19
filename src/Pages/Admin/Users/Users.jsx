@@ -16,8 +16,7 @@ const Users = () => {
     queryFn: () => fetchUsers(axiosInstance, search),
     enabled: true,
   });
-  console.log(data);
-
+ 
   const searchUser = async () => {
     await refetch();
     console.log("hekk");
