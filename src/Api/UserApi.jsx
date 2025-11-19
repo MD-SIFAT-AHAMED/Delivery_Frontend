@@ -1,6 +1,6 @@
 
-export const fetchUsers = async (axiosInstance) => {
-  const res = await axiosInstance.get("/api/v1/users");
+export const fetchUsers = async (axiosInstance,searchText) => {
+  const res = await axiosInstance.get(`/api/v1/users?search=${searchText}`);
   return res.data.data;
 };
 
