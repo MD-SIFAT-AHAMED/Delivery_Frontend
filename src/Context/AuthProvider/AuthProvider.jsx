@@ -43,10 +43,10 @@ const AuthProvider = ({ children }) => {
       if (currentUser?.email) {
         const userData = { email: currentUser.email };
         axiosInstance
-          .post("api/v1/users/jwt", userData)
+          .post("api/v1/auth/jwt", userData)
           .then((res) => {
             const token = res.data.token;
-            // console.log(token);
+            console.log(token);
             localStorage.setItem("token", token);
           })
           .catch(() => {});

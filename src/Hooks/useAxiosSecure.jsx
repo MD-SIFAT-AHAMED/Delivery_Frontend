@@ -24,7 +24,7 @@ const useAxiosSecure = () => {
       return res;
     },
     (error) => {
-      const status = error.status;
+      const status = error.response?.status;
       if (status === 400) {
         navigate("/forbidden");
       } else if (status === 401) {

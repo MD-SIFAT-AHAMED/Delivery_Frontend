@@ -104,7 +104,7 @@ const Users = () => {
       ),
     },
   ];
-  console.log(search);
+ 
   return (
     <div>
       <div className="flex gap-2 items-center lg:justify-center py-3 ">

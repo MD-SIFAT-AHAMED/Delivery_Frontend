@@ -12,6 +12,7 @@ import CoverAge from "../Pages/CoverAge/CoverAge";
 import BeARider from "../Pages/BeARider/BeARider";
 import Users from "../Pages/Admin/Users/Users";
 import RoleProtectedRouter from "../Routes/RoleProtectedRouter";
+import Riders from "../Pages/Admin/Riders/Riders";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
       {
         path: "users",
         Component: Users,
+      },
+      {
+        path: "riders",
+        Component: Riders,
       },
     ],
   },
