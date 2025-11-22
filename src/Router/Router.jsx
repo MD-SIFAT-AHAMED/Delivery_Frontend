@@ -13,6 +13,8 @@ import BeARider from "../Pages/BeARider/BeARider";
 import Users from "../Pages/Admin/Users/Users";
 import RoleProtectedRouter from "../Routes/RoleProtectedRouter";
 import Riders from "../Pages/Admin/Riders/Riders";
+import SendParcel from "../Pages/SendParcel/SendParcel";
+import Profile from "../Pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,24 @@ const router = createBrowserRouter([
         element: (
           <PrivateRouter>
             <BeARider />
+          </PrivateRouter>
+        ),
+        loader: () => fetch("./services.json"),
+      },
+      {
+        path: "/sendparcel",
+        element: (
+          <PrivateRouter>
+            <SendParcel />
+          </PrivateRouter>
+        ),
+        loader: () => fetch("./services.json"),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRouter>
+            <Profile />
           </PrivateRouter>
         ),
         loader: () => fetch("./services.json"),
