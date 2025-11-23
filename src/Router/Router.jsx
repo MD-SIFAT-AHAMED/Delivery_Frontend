@@ -15,6 +15,7 @@ import RoleProtectedRouter from "../Routes/RoleProtectedRouter";
 import Riders from "../Pages/Admin/Riders/Riders";
 import SendParcel from "../Pages/SendParcel/SendParcel";
 import Profile from "../Pages/Profile/Profile";
+import Admin from "../Pages/Admin/Admin/Admin";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
       {
         path: "riders",
         Component: Riders,
+      },
+      {
+        path: "admin",
+        Component: Admin,
       },
     ],
   },

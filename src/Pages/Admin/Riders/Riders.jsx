@@ -21,8 +21,6 @@ const Riders = () => {
 
     { label: "Region", key: "region" },
 
-    { label: "Contact", key: "contact" },
-    { label: "Age", key: "age" },
     {
       label: "Status",
       key: "status",

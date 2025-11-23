@@ -43,13 +43,11 @@ const Users = () => {
 
     { label: "Email", key: "email" },
 
-    { label: "Address", key: "address" },
-
     {
       label: "Role",
       key: "role",
       render: (value) => (
-        <span className="badge badge-outline capitalize">{value}</span>
+        <span className="capitalize">{value}</span>
       ),
     },
 
@@ -71,34 +69,28 @@ const Users = () => {
     },
 
     {
-      label: "Updated",
-      key: "update_at",
-      render: (value) => new Date(value).toLocaleDateString(),
-    },
-
-    {
       label: "Actions",
       key: "actions",
       headerClassName: "text-center",
       render: (_, row) => (
         <div className="flex gap-2 justify-center">
           <button className="btn btn-xs btn-info">
-            <FaEye />
+           View
           </button>
 
           <button className="btn btn-xs btn-warning">
-            <FaEdit />
+           Edit
           </button>
 
           <button className="btn btn-xs btn-success">
-            <FaUserShield />
+           Change Role
           </button>
 
           <button
             className="btn btn-xs btn-error"
             onClick={() => handleDelete(row.id)}
           >
-            <FaTrash />
+            Delete
           </button>
         </div>
       ),

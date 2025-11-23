@@ -10,6 +10,7 @@ import {
   FaSignOutAlt,
   FaMotorcycle,
 } from "react-icons/fa";
+import { RiAdminFill } from "react-icons/ri";
 import ProFastLogo from "../Pages/Shared/ProFastLogo/ProFastLogo";
 import logoImg from "../assets/logo.png";
 import Users from "../Pages/Admin/Users/Users";
@@ -65,6 +66,13 @@ const DashboardLayout = () => {
             className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
           >
             <FaUser size={18} /> {isSidebarOpen && <span>Users</span>}
+          </Link>
+
+          <Link
+            to="admin"
+            className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
+          >
+            <RiAdminFill size={18} /> {isSidebarOpen && <span>Make Admin</span>}
           </Link>
 
           <Link
