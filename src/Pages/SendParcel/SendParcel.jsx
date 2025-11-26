@@ -9,6 +9,7 @@ import ParcelSummary from "./ParcelSummary";
 import PaymentSelect from "./PaymentSelect";
 import FromParcel from "./FromParcel";
 import calculateCost from "../../Utils/calculateCost";
+import { PostParcelInfo } from "../../Api/UserApi";
 
 const SendParcel = () => {
   const {
@@ -24,7 +25,7 @@ const SendParcel = () => {
   const [showPayment, setShowPayment] = useState(false);
   const [cost, setCost] = useState(0);
   const allDistrict = useLoaderData();
-  const axiosSecure = useAxiosSecure();
+  const axiosInstance = useAxiosSecure();
   const { user } = useAuth();
 
   const type = watch("type");
@@ -35,7 +36,6 @@ const SendParcel = () => {
     const calculatedCost = calculateCost(data);
     setCost(calculatedCost);
     setParcelData(data);
-    console.log(parcelData, calculatedCost);
     setShowConfirm(true);
   };
 
@@ -47,6 +47,44 @@ const SendParcel = () => {
     setShowPayment(true);
     setShowConfirm(false);
   };
+
+  // SSL payment
+  const OnSSL = async (parcelInfo) => {
+    try {
+      const deliveryData = {
+        ...parcelInfo,
+        weight: parcelData?.weight ? parseFloat(parcelData.weight) : null,
+        cost: parseFloat(cost),
+        delivery_status: "Not_collected",
+        payment_status: "pending",
+        created_by: user.email,
+      };
+      console.log(parcelData);
+
+      // Call API to save parcel and get trackingId
+      const trackingId = await PostParcelInfo(axiosInstance, deliveryData);
+
+      // Initiate SSL payment
+      const res = await axiosInstance.post(
+        "/api/v1/payment/create-ssl-payment",
+        {
+          ...deliveryData,
+          trackingId,
+        }
+      );
+
+      if (res.data?.GatewayPageURL) {
+        window.location.replace(res.data.GatewayPageURL);
+        setShowPayment(false);
+      }
+    } catch (err) {
+      console.error("Parcel/payment error:", err);
+      toast.error("Failed to complete parcel/payment process");
+    }
+  };
+
+  // Cash on Delivery
+  const onStripe = () => {};
 
   // const confirmSubmit = (data) => {
   //   const deliveryData = {
@@ -102,7 +140,7 @@ const SendParcel = () => {
         {/* Payment modal */}
         {showPayment && (
           <div className="fixed bg-white inset-0  bg-opacity-30 flex justify-center items-center z-50">
-            <PaymentSelect />
+            <PaymentSelect parcelData={parcelData} cost={cost} OnSSL={OnSSL} />
           </div>
         )}
       </div>

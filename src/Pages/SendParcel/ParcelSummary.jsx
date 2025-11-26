@@ -15,7 +15,7 @@ const ParcelSummary = ({ parcel, onConfirm, onClose, cost }) => {
 
       <div className="space-y-3 text-gray-700">
         <p>
-          <strong>Sender:</strong> {parcel.senderName} ({parcel.senderContact})
+          <strong>Sender:</strong> {parcel?.senderName} ({parcel.senderContact})
         </p>
 
         <p>

@@ -1,7 +1,7 @@
 import { FaMoneyBillWave } from "react-icons/fa";
 import { BsCreditCard2Back } from "react-icons/bs";
 
-const PaymentSelect = ({ onCOD, onStripe }) => {
+const PaymentSelect = ({ onCOD, OnSSL, parcelData }) => {
   return (
     <div className="p-8 bg-white rounded-2xl shadow-xl border border-gray-100 max-w-md mx-auto">
       <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
@@ -18,13 +18,13 @@ const PaymentSelect = ({ onCOD, onStripe }) => {
           Cash On Delivery
         </button>
 
-        {/* STRIPE BUTTON */}
+        {/* SSL BUTTON */}
         <button
-          onClick={() => onStripe()}
+          onClick={() => OnSSL(parcelData)}
           className="w-full flex items-center justify-center gap-3 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl shadow-md hover:opacity-90 transition-all"
         >
           <BsCreditCard2Back size={22} />
-          Pay with Stripe
+          Pay with SSL Commerz
         </button>
       </div>
     </div>

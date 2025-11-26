@@ -11,7 +11,6 @@ const FromParcel = ({
   senderRegion,
   receiverRegion,
 }) => {
-
   return (
     <div>
       <form

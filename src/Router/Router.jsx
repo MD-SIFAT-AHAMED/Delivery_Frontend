@@ -16,6 +16,7 @@ import Riders from "../Pages/Admin/Riders/Riders";
 import SendParcel from "../Pages/SendParcel/SendParcel";
 import Profile from "../Pages/Profile/Profile";
 import Admin from "../Pages/Admin/Admin/Admin";
+import Forbidden from "../Pages/Forbidden/Forbidden";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
           </PrivateRouter>
         ),
         loader: () => fetch("./services.json"),
+      },
+      {
+        path: "/forbidden",
+        Component: Forbidden,
       },
     ],
   },
