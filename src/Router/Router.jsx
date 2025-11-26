@@ -18,6 +18,7 @@ import Profile from "../Pages/Profile/Profile";
 import Admin from "../Pages/Admin/Admin/Admin";
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
+import PaymentCancel from "../Pages/Payment/PaymentCancel";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRouter>
             <PaymentSuccess />
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/payment-cancel",
+        element: (
+          <PrivateRouter>
+            <PaymentCancel />
           </PrivateRouter>
         ),
       },
