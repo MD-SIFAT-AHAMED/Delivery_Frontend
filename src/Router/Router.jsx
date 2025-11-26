@@ -17,6 +17,7 @@ import SendParcel from "../Pages/SendParcel/SendParcel";
 import Profile from "../Pages/Profile/Profile";
 import Admin from "../Pages/Admin/Admin/Admin";
 import Forbidden from "../Pages/Forbidden/Forbidden";
+import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,14 @@ const router = createBrowserRouter([
       {
         path: "/forbidden",
         Component: Forbidden,
+      },
+      {
+        path: "/payment-success",
+        element: (
+          <PrivateRouter>
+            <PaymentSuccess />
+          </PrivateRouter>
+        ),
       },
     ],
   },

@@ -54,12 +54,12 @@ const SendParcel = () => {
       const deliveryData = {
         ...parcelInfo,
         weight: parcelData?.weight ? parseFloat(parcelData.weight) : null,
-        cost: parseFloat(cost),
+        // cost: parseFloat(cost),
         delivery_status: "Not_collected",
         payment_status: "pending",
         created_by: user.email,
       };
-      console.log(parcelData);
+      // console.log(parcelData);
 
       // Call API to save parcel and get trackingId
       const trackingId = await PostParcelInfo(axiosInstance, deliveryData);
@@ -72,9 +72,10 @@ const SendParcel = () => {
           trackingId,
         }
       );
-
+      console.log(res.data?.GatewayPageURL);
       if (res.data?.GatewayPageURL) {
         window.location.replace(res.data.GatewayPageURL);
+
         setShowPayment(false);
       }
     } catch (err) {
