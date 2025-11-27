@@ -19,6 +19,8 @@ import Admin from "../Pages/Admin/Admin/Admin";
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentCancel from "../Pages/Payment/PaymentCancel";
+import PaymentFail from "../Pages/Payment/PaymentFail";
+import Services from "../Pages/Services/Services";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,10 @@ const router = createBrowserRouter([
         path: "/coverage",
         Component: CoverAge,
         loader: () => fetch("./services.json"),
+      },
+      {
+        path: "/services",
+        Component: Services,
       },
       {
         path: "/beARider",
@@ -82,6 +88,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRouter>
             <PaymentCancel />
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/payment-fail",
+        element: (
+          <PrivateRouter>
+            <PaymentFail />
           </PrivateRouter>
         ),
       },

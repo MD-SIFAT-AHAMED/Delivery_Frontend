@@ -7,13 +7,15 @@ import Merchant from "../Merchant/Merchant";
 import CommentSwiper from "../CommentSwiper/CommentSwiper";
 import FaqSection from "../FaqSection/FaqSection";
 import useClickOutside from "../../../Hooks/useClickOutside";
+import Services from "../../Services/Services";
 
 const Home = () => {
   return (
     <div>
       <Banner />
+      <Services />
       <HowItWork />
-      <OurServices />
+      {/* <OurServices /> */}
       <SalesPartner />
       <Merchant />
       <CommentSwiper />

@@ -2,7 +2,7 @@ import React from "react";
 import locationImg from "../../../assets/location-merchant.png";
 const Merchant = () => {
   return (
-    <div className="bg-gray-100 my-8">
+    <div className="bg-gray-100">
       <div className="max-w-screen-2xl w-11/12 mx-auto ">
         <div
           data-aos="zoom-in"

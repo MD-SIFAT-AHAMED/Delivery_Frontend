@@ -13,7 +13,7 @@ const SalesPartner = () => {
   const logos = [logo1, logo2, logo3, logo4, logo5, logo6];
 
   return (
-    <div className="bg-gray-50 py-10">
+    <div className="bg-gray-100 py-10">
       <div className="max-w-screen-2xl w-11/12 mx-auto text-center">
         <SectionHeader
           title={"Our Sales Partners"}

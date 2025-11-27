@@ -13,11 +13,6 @@ const SectionHeader = ({
         {title}
       </h2>
       <p className={`${SHcolor} text-base md:text-lg`}>{subtitle}</p>
-      <div
-        className={`mt-3 h-1 w-50 ${
-          align === "center" ? "mx-auto" : ""
-        } bg-gray-900 rounded`}
-      ></div>
     </div>
   );
 };
