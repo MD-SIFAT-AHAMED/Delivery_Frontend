@@ -1,7 +1,7 @@
 import React from "react";
-import DataTable from "../../../Component/DataTable/DataTable";
-import { fetchAdmin } from "../../../Api/AdminApi";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import DataTable from "../../../../Component/DataTable/DataTable";
+import { fetchAdmin } from "../../../../Api/AdminApi";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
 const Admin = () => {

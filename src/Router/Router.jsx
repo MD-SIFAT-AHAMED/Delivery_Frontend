@@ -10,17 +10,18 @@ import PrivateRouter from "../Routes/PrivateRouter";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import CoverAge from "../Pages/CoverAge/CoverAge";
 import BeARider from "../Pages/BeARider/BeARider";
-import Users from "../Pages/Admin/Users/Users";
+import Users from "../Pages/Dashboard/Admin/Users/Users";
 import RoleProtectedRouter from "../Routes/RoleProtectedRouter";
-import Riders from "../Pages/Admin/Riders/Riders";
+import Riders from "../Pages/Dashboard/Admin/Riders/Riders";
 import SendParcel from "../Pages/SendParcel/SendParcel";
 import Profile from "../Pages/Profile/Profile";
-import Admin from "../Pages/Admin/Admin/Admin";
+import Admin from "../Pages/Dashboard/Admin/Admin/Admin";
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentCancel from "../Pages/Payment/PaymentCancel";
 import PaymentFail from "../Pages/Payment/PaymentFail";
-import Services from "../Pages/Services/Services";
+import Services from "../Pages/Home/Services/Services";
+import Parcel from "../Pages/Dashboard/Admin/Parcel/Parcel";
 
 const router = createBrowserRouter([
   {
@@ -140,6 +141,10 @@ const router = createBrowserRouter([
       {
         path: "admin",
         Component: Admin,
+      },
+      {
+        path: "parcels",
+        Component: Parcel,
       },
     ],
   },

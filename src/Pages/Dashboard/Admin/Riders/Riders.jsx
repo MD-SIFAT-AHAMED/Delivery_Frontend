@@ -1,8 +1,8 @@
 import React from "react";
-import DataTable from "../../../Component/DataTable/DataTable";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import DataTable from "../../../../Component/DataTable/DataTable";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { fetchRider } from "../../../Api/RiderApi";
+import { fetchRider } from "../../../../Api/RiderApi";
 
 const Riders = () => {
   const axiosInstance = useAxiosSecure();

@@ -13,7 +13,7 @@ import {
 import { RiAdminFill } from "react-icons/ri";
 import ProFastLogo from "../Pages/Shared/ProFastLogo/ProFastLogo";
 import logoImg from "../assets/logo.png";
-import Users from "../Pages/Admin/Users/Users";
+import Users from "../Pages/Dashboard/Admin/Users/Users";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -48,7 +48,7 @@ const DashboardLayout = () => {
           </Link>
 
           <Link
-            to="/parcels"
+            to="parcels"
             className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
           >
             <FaBox size={18} /> {isSidebarOpen && <span>Parcels</span>}

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchUsers, deleteUser } from "../../../Api/UserApi";
+import { fetchUsers, deleteUser } from "../../../../Api/UserApi";
 import { FaEye, FaEdit, FaTrash, FaUserShield } from "react-icons/fa";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import DataTable from "../../../Component/DataTable/DataTable";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import DataTable from "../../../../Component/DataTable/DataTable";
 
 const Users = () => {
   const queryClient = useQueryClient();

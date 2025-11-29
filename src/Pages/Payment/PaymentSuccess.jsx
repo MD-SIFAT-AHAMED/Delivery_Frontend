@@ -8,7 +8,7 @@ const PaymentSuccess = () => {
   const { trackingId, amount } = state || {};
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-100 to-green-300 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-100 to-green-200 p-4">
       <div className="bg-white rounded-2xl shadow-xl p-10 max-w-md w-full text-center">
         <FaCheckCircle className="mx-auto h-20 w-20 text-green-500" />
         <h1 className="text-3xl font-bold mt-4 text-green-700">

@@ -26,7 +26,7 @@ const Navber = () => {
   const links = (
     <>
       <li>
-        <NavLink to={"/services"}>Services</NavLink>
+        <NavLink to={"/"}>Home</NavLink>
       </li>
       <li>
         <NavLink to={"/coverage"}>Coverage</NavLink>

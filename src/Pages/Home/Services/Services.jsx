@@ -6,7 +6,7 @@ import {
   FaClipboardList,
   FaBell,
 } from "react-icons/fa";
-import SectionHeader from "../../Component/SectionHeader/SectionHeader";
+import SectionHeader from "../../../Component/SectionHeader/SectionHeader";
 
 const Services = () => {
   const services = [
