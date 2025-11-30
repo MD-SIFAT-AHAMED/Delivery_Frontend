@@ -1,16 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import DataTable from "../../../../Component/DataTable/DataTable";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchRider } from "../../../../Api/RiderApi";
+import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
+import { fetchRiderInfo } from "../../../../Api/AdminApi";
+import toast from "react-hot-toast";
 
 const Riders = () => {
   const axiosInstance = useAxiosSecure();
+  const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
+  const [selectedEmail, setSelectedEmail] = useState(null);
+
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["riders"],
     queryFn: () => fetchRider(axiosInstance),
   });
-  console.log(data);
+
+  const { data: riderInfo } = useQuery({
+    queryKey: ["riderInfo", selectedEmail],
+    queryFn: () => fetchRiderInfo(axiosInstance, selectedEmail),
+    enabled: !!selectedEmail,
+  });
+
+  const approveMutation = useMutation({
+    mutationFn: (userEmail) =>
+      axiosInstance.put("/api/v1/admin/approve-riderAppilcation", {
+        userEmail,
+      }),
+    onSuccess: () => {
+      toast.success("Rider approved successfully");
+      //  riders and info reload
+      queryClient.invalidateQueries(["riders"]);
+      queryClient.invalidateQueries(["riderInfo"]);
+    },
+    onError: () => {
+      toast.error("Failed to approve rider");
+    },
+  });
+
+  //Details view handler
+  const handlerViewDeatils = (userEmail) => {
+    setSelectedEmail(userEmail);
+    setOpen(true);
+  };
+
+  const handlerRiderApprove = (userEmail) => {
+    approveMutation.mutate(userEmail);
+  };
 
   const columns = [
     { label: "#", key: "serial" },
@@ -39,7 +77,7 @@ const Riders = () => {
     {
       label: "Applied Date",
       key: "applied_date",
-       render: (_, row) => new Date(row.applied_date).toLocaleDateString(),
+      render: (_, row) => new Date(row.applied_date).toLocaleDateString(),
     },
 
     {
@@ -48,9 +86,19 @@ const Riders = () => {
       headerClassName: "text-center",
       render: (_, row) => (
         <div className="flex gap-2 justify-center">
-          <button className="btn btn-xs btn-info">View</button>
+          <button
+            onClick={() => handlerViewDeatils(row?.email)}
+            className="btn btn-xs btn-info"
+          >
+            View
+          </button>
 
-          <button className="btn btn-xs btn-success">Approve</button>
+          <button
+            onClick={() => handlerRiderApprove(row?.email)}
+            className="btn btn-xs btn-success"
+          >
+            Approve
+          </button>
 
           <button className="btn btn-xs btn-warning">Reject</button>
 
@@ -58,12 +106,19 @@ const Riders = () => {
         </div>
       ),
     },
-    
   ];
 
   return (
     <div>
+      {/* Table */}
       <DataTable columns={columns} data={data} />
+      {/* Details Modal */}
+      <DetailsModal
+        open={open}
+        title={"Rider Application Details"}
+        data={riderInfo?.[0] || []}
+        onClose={() => setOpen(false)}
+      />
     </div>
   );
 };

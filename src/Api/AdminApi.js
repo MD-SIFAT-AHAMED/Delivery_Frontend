@@ -7,3 +7,11 @@ export const fetchParcels = async (axiosInstance) => {
   const result = await axiosInstance.get("/api/v1/admin/get-all-parcels");
   return result.data.data;
 };
+
+export const fetchRiderInfo = async (axiosInstance, userEmail) => {
+  console.log("UserEmail;", userEmail);
+  const result = await axiosInstance.get(
+    `/api/v1/admin/rider-info?userEmail=${userEmail}`
+  );
+  return result.data.data;
+};
