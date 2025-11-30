@@ -24,6 +24,7 @@ const Riders = () => {
     enabled: !!selectedEmail,
   });
 
+  // Approve mutaion function
   const approveMutation = useMutation({
     mutationFn: (userEmail) =>
       axiosInstance.put("/api/v1/admin/approve-riderAppilcation", {
@@ -40,6 +41,40 @@ const Riders = () => {
     },
   });
 
+  // Reject mutaion function
+  const rejectMutation = useMutation({
+    mutationFn: (userEmail) =>
+      axiosInstance.put("/api/v1/admin/reject-riderAppilcation", {
+        userEmail,
+      }),
+    onSuccess: () => {
+      toast.success("Rider reject successfully");
+      //  riders and info reload
+      queryClient.invalidateQueries(["riders"]);
+      queryClient.invalidateQueries(["riderInfo"]);
+    },
+    onError: () => {
+      toast.error("Failed to reject rider");
+    },
+  });
+
+  // Delete mutaion function
+  const deleteMutation = useMutation({
+    mutationFn: (userEmail) =>
+      axiosInstance.delete(
+        `/api/v1/admin/delete-riderAppilcation?userEmail=${userEmail}`
+      ),
+    onSuccess: () => {
+      toast.success("Application Delete successfully");
+      //  riders and info reload
+      queryClient.invalidateQueries(["riders"]);
+      queryClient.invalidateQueries(["riderInfo"]);
+    },
+    onError: () => {
+      toast.error("Failed to delete application");
+    },
+  });
+
   //Details view handler
   const handlerViewDeatils = (userEmail) => {
     setSelectedEmail(userEmail);
@@ -48,6 +83,14 @@ const Riders = () => {
 
   const handlerRiderApprove = (userEmail) => {
     approveMutation.mutate(userEmail);
+  };
+
+  const handlerRiderReject = (userEmail) => {
+    rejectMutation.mutate(userEmail);
+  };
+
+  const handlerDeleteApplication = (userEmail) => {
+    deleteMutation.mutate(userEmail);
   };
 
   const columns = [
@@ -100,9 +143,19 @@ const Riders = () => {
             Approve
           </button>
 
-          <button className="btn btn-xs btn-warning">Reject</button>
+          <button
+            onClick={() => handlerRiderReject(row?.email)}
+            className="btn btn-xs btn-warning"
+          >
+            Reject
+          </button>
 
-          <button className="btn btn-xs btn-error">Delete</button>
+          <button
+            onClick={() => handlerDeleteApplication(row?.email)}
+            className="btn btn-xs btn-error"
+          >
+            Delete
+          </button>
         </div>
       ),
     },
