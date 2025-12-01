@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import DataTable from "../../../../Component/DataTable/DataTable";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchParcelInfo, fetchParcels } from "../../../../Api/AdminApi";
 import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
+import ConfirmDeleteModal from "../../../../Component/ConfirmDeleteModal/ConfirmDeleteModal";
+import toast from "react-hot-toast";
 
 const Parcel = () => {
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [selecctTrackingId, setSelectTrackingId] = useState(null);
+  const [deleteTrakingId, setDeleteTrakingId] = useState(null);
 
   // Fetch parcels
   const axiosInstance = useAxiosSecure();
@@ -17,16 +22,42 @@ const Parcel = () => {
   });
 
   // Fetch parce info
-
   const { data: parcelInfo } = useQuery({
     queryKey: ["parelInfo"],
     queryFn: () => fetchParcelInfo(axiosInstance, selecctTrackingId),
     enabled: !!selecctTrackingId,
   });
 
+  // Delete parcel
+  const deleteMutaion = useMutation({
+    mutationFn: () =>
+      axiosInstance.delete(
+        `/api/v1/admin/delete-parcel?trakingId=${deleteTrakingId}`
+      ),
+    onSuccess: () => {
+      toast.success("Parcel Delete Successfully");
+      // parcels and parcel info reload
+      queryClient.invalidateQueries("parcels");
+      queryClient.invalidateQueries("parelInfo");
+    },
+    onError: (err) => {
+      toast.error("Failed to Delete Parcel", err);
+    },
+  });
+
   const handlerParcelDetails = (trackingId) => {
     setSelectTrackingId(trackingId);
     setOpen(true);
+  };
+
+  const handlerDeleteParcelConfrim = () => {
+    deleteMutaion.mutate();
+    setOpenModal(false);
+  };
+
+  const handlerDeleteParcel = (trakingId) => {
+    setDeleteTrakingId(trakingId);
+    setOpenModal(true);
   };
 
   const columns = [
@@ -94,7 +125,12 @@ const Parcel = () => {
           <button className="btn btn-xs btn-warning">Edit</button>
           <button className="btn btn-xs bg-amber-500">Assign Rider</button>
           <button className="btn btn-xs btn-success">Status</button>
-          <button className="btn btn-xs btn-error">Delete</button>
+          <button
+            onClick={() => handlerDeleteParcel(row?.trackingId)}
+            className="btn btn-xs btn-error"
+          >
+            Delete
+          </button>
         </div>
       ),
     },
@@ -109,6 +145,13 @@ const Parcel = () => {
         onClose={() => setOpen(false)}
         title={"Parcel Details"}
         open={open}
+      />
+      {/* Confrim Delete modal */}
+      <ConfirmDeleteModal
+        open={openModal}
+        title={"Delete Parcel"}
+        onConfirm={handlerDeleteParcelConfrim}
+        onCancel={() => setOpenModal(false)}
       />
     </div>
   );
