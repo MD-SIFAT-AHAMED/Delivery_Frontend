@@ -4,6 +4,7 @@ import riderImg from "../../assets/agent-pending.png";
 import { useLoaderData } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const BeARider = () => {
   const {
@@ -15,10 +16,20 @@ const BeARider = () => {
   const axiosSecure = useAxiosSecure();
 
   const onSubmit = (data) => {
-    console.log("Rider Form Data:", data);
-    axiosSecure.post("/api/v1/riders/apply-rider", data).then((dataRes) => {
-      console.log(dataRes);
-    });
+    axiosSecure
+      .post("/api/v1/riders/apply-rider", data)
+      .then((dataRes) => {
+        if (dataRes.status === 200) {
+          toast.success("Rider Application Successfully");
+        }
+      })
+      .catch((err) => {
+        if (err.response?.status === 409) {
+          toast.error("Rider Already Exists");
+        } else {
+          toast.error("Something went wrong");
+        }
+      });
 
     reset();
   };

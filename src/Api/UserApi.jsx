@@ -12,3 +12,11 @@ export const deleteUser = async (axiosInstance, id) => {
   //   const res = await axiosInstance.delete(`/users/${id}`);
   return res.data;
 };
+
+export const fetchUserInfo = async (axiosInstance, userEmail) => {
+  const res = await axiosInstance.get(
+    `/api/v1/admin/user-info?userEmail=${userEmail}`
+  );
+  console.log(res.data);
+  return res.data.data[0];
+};

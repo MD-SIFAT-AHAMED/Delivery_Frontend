@@ -6,12 +6,15 @@ import { fetchRider } from "../../../../Api/RiderApi";
 import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
 import { fetchRiderInfo } from "../../../../Api/AdminApi";
 import toast from "react-hot-toast";
+import ConfirmDeleteModal from "../../../../Component/ConfirmDeleteModal/ConfirmDeleteModal";
 
 const Riders = () => {
   const axiosInstance = useAxiosSecure();
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const [selectedEmail, setSelectedEmail] = useState(null);
+  const [deleteEmail, setDeleteEmail] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["riders"],
@@ -89,8 +92,14 @@ const Riders = () => {
     rejectMutation.mutate(userEmail);
   };
 
-  const handlerDeleteApplication = (userEmail) => {
-    deleteMutation.mutate(userEmail);
+  const handlerDeleteApplication = () => {
+    deleteMutation.mutate(deleteEmail);
+    setOpenModal(false);
+  };
+
+  const handleDelete = (userEmail) => {
+    setDeleteEmail(userEmail);
+    setOpenModal(true);
   };
 
   const columns = [
@@ -151,7 +160,7 @@ const Riders = () => {
           </button>
 
           <button
-            onClick={() => handlerDeleteApplication(row?.email)}
+            onClick={() => handleDelete(row?.email)}
             className="btn btn-xs btn-error"
           >
             Delete
@@ -171,6 +180,13 @@ const Riders = () => {
         title={"Rider Application Details"}
         data={riderInfo?.[0] || []}
         onClose={() => setOpen(false)}
+      />
+      {/* Confirm delete modal */}
+      <ConfirmDeleteModal
+        title={"Delete Rider Application"}
+        onConfirm={handlerDeleteApplication}
+        onCancel={() => setOpenModal(false)}
+        open={openModal}
       />
     </div>
   );

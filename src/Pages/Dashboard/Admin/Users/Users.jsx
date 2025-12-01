@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchUsers, deleteUser } from "../../../../Api/UserApi";
+import { fetchUsers, deleteUser, fetchUserInfo } from "../../../../Api/UserApi";
 import { FaEye, FaEdit, FaTrash, FaUserShield } from "react-icons/fa";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import DataTable from "../../../../Component/DataTable/DataTable";
+import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
+import ConfirmDeleteModal from "../../../../Component/ConfirmDeleteModal/ConfirmDeleteModal";
+import toast from "react-hot-toast";
 
 const Users = () => {
   const queryClient = useQueryClient();
   const axiosInstance = useAxiosSecure();
   const [search, setSearch] = useState("");
+  const [selectEamail, setSelcectEmail] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [openConfrim, setOpenConfrim] = useState(false);
+  const [deleteEmail, setDeleteEmail] = useState(null);
 
   // Fetch users
   const { data, isLoading, refetch } = useQuery({
@@ -16,21 +23,50 @@ const Users = () => {
     queryFn: () => fetchUsers(axiosInstance, search),
     enabled: true,
   });
- 
+
+  // Fetch user info
+  const { data: userInfo } = useQuery({
+    queryKey: ["userInfo", selectEamail],
+    queryFn: () => fetchUserInfo(axiosInstance, selectEamail),
+    enabled: !!selectEamail,
+  });
+
+  // Delete mutation
+  const deleteMutation = useMutation({
+    mutationFn: (deleteEmail) =>
+      axiosInstance.delete(
+        `/api/v1/admin/delete-user?userEmail=${deleteEmail}`
+      ),
+    onSuccess: () => {
+      toast.success("User Delete Successfully");
+      //user and userInfo reload
+      queryClient.invalidateQueries("userInfo");
+      queryClient.invalidateQueries("users");
+    },
+    onError: (err) => {
+      toast.error("Failed to delete User", err);
+    },
+  });
+
   const searchUser = async () => {
     await refetch();
-    console.log("hekk");
   };
 
-  // Delete user mutation
-  //   const deleteMutation = useMutation(deleteUser(axiosInstance, ), {
-  //     onSuccess: () => queryClient.invalidateQueries(["users"]),
-  //   });
+  // User Detail view
+  const handlerViewDetails = (userEmail) => {
+    setSelcectEmail(userEmail);
+    setOpen(true);
+  };
 
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      deleteMutation.mutate(id);
-    }
+  // Confrim delete
+  const handlerConfrimDelete = () => {
+    deleteMutation.mutate(deleteEmail);
+    setOpenConfrim(false);
+  };
+
+  const handlerDelete = (userEmail) => {
+    setDeleteEmail(userEmail);
+    setOpenConfrim(true);
   };
 
   if (isLoading)
@@ -46,9 +82,7 @@ const Users = () => {
     {
       label: "Role",
       key: "role",
-      render: (value) => (
-        <span className="capitalize">{value}</span>
-      ),
+      render: (value) => <span className="capitalize">{value}</span>,
     },
 
     {
@@ -74,21 +108,20 @@ const Users = () => {
       headerClassName: "text-center",
       render: (_, row) => (
         <div className="flex gap-2 justify-center">
-          <button className="btn btn-xs btn-info">
-           View
+          <button
+            onClick={() => handlerViewDetails(row?.email)}
+            className="btn btn-xs btn-info"
+          >
+            View
           </button>
 
-          <button className="btn btn-xs btn-warning">
-           Edit
-          </button>
+          {/* <button className="btn btn-xs btn-warning">Edit</button>
 
-          <button className="btn btn-xs btn-success">
-           Change Role
-          </button>
+          <button className="btn btn-xs btn-success">Change Role</button> */}
 
           <button
             className="btn btn-xs btn-error"
-            onClick={() => handleDelete(row.id)}
+            onClick={() => handlerDelete(row?.email)}
           >
             Delete
           </button>
@@ -96,7 +129,7 @@ const Users = () => {
       ),
     },
   ];
- 
+
   return (
     <div>
       <div className="flex gap-2 items-center lg:justify-center py-3 ">
@@ -117,6 +150,19 @@ const Users = () => {
       <div>
         <DataTable columns={columns} data={data} />
       </div>
+      {/* user details view */}
+      <DetailsModal
+        onClose={() => setOpen(false)}
+        open={open}
+        data={userInfo || []}
+        title={"User Details"}
+      />
+      {/* Delete confrim modal */}
+      <ConfirmDeleteModal
+        onConfirm={handlerConfrimDelete}
+        onCancel={() => setOpenConfrim(false)}
+        open={openConfrim}
+      />
     </div>
   );
 };
