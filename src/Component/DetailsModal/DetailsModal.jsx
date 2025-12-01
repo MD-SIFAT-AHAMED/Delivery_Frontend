@@ -17,7 +17,7 @@ const DetailsModal = ({ open, title, onClose, data }) => {
           </button>
         </div>
         {/*Content */}
-        <div className="p-3 bg-gray-100 rounded-xl">
+        <div className="p-3 h-70 overflow-auto bg-gray-100 rounded-xl">
           {Object.entries(data)?.map(([key, value]) => (
             <div key={key} className="flex justify-between pb-2">
               <span className="font-medium capitalize">
