@@ -6,6 +6,7 @@ import { fetchParcelInfo, fetchParcels } from "../../../../Api/AdminApi";
 import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
 import ConfirmDeleteModal from "../../../../Component/ConfirmDeleteModal/ConfirmDeleteModal";
 import toast from "react-hot-toast";
+import ParcelStatusModal from "./ParcelStatusModal";
 
 const Parcel = () => {
   const queryClient = useQueryClient();
@@ -13,6 +14,8 @@ const Parcel = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selecctTrackingId, setSelectTrackingId] = useState(null);
   const [deleteTrakingId, setDeleteTrakingId] = useState(null);
+  const [isStatusModal, setIsStatusModal] = useState(false);
+  const [statusData, setStatusData] = useState(null);
 
   // Fetch parcels
   const axiosInstance = useAxiosSecure();
@@ -59,6 +62,8 @@ const Parcel = () => {
     setDeleteTrakingId(trakingId);
     setOpenModal(true);
   };
+
+   console.log(statusData);
 
   const columns = [
     { label: "#", key: "serial" },
@@ -124,7 +129,15 @@ const Parcel = () => {
           </button>
           <button className="btn btn-xs btn-warning">Edit</button>
           <button className="btn btn-xs bg-amber-500">Assign Rider</button>
-          <button className="btn btn-xs btn-success">Status</button>
+          <button
+            onClick={() => {
+              setIsStatusModal(true);
+              setStatusData(row);
+            }}
+            className="btn btn-xs btn-success"
+          >
+            Status
+          </button>
           <button
             onClick={() => handlerDeleteParcel(row?.trackingId)}
             className="btn btn-xs btn-error"
@@ -153,6 +166,14 @@ const Parcel = () => {
         onConfirm={handlerDeleteParcelConfrim}
         onCancel={() => setOpenModal(false)}
       />
+      {/* Status modal */}
+      {isStatusModal && statusData && (
+        <ParcelStatusModal
+          parcel={statusData}
+          onClose={() => setIsStatusModal(false)}
+          queryClient={queryClient}
+        />
+      )}
     </div>
   );
 };
