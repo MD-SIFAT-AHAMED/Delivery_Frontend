@@ -50,12 +50,13 @@ const SendParcel = () => {
 
   // SSL payment
   const OnSSL = async (parcelInfo) => {
+    console.log(parcelInfo);
     try {
       const deliveryData = {
         ...parcelInfo,
         weight: parcelData?.weight ? parseFloat(parcelData.weight) : null,
         // cost: parseFloat(cost),
-        delivery_status: "Not_collected",
+        delivery_status: "Pending",
         payment_status: "pending",
         created_by: user.email,
       };

@@ -22,6 +22,7 @@ import PaymentCancel from "../Pages/Payment/PaymentCancel";
 import PaymentFail from "../Pages/Payment/PaymentFail";
 import Services from "../Pages/Home/Services/Services";
 import Parcel from "../Pages/Dashboard/Admin/Parcel/Parcel";
+import PaymentHistory from "../Pages/Dashboard/Admin/PaymentHistory/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -137,6 +138,10 @@ const router = createBrowserRouter([
       {
         path: "riders",
         Component: Riders,
+      },
+      {
+        path: "payment-history",
+        Component: PaymentHistory,
       },
       {
         path: "admin",

@@ -9,6 +9,7 @@ import {
   FaBox,
   FaSignOutAlt,
   FaMotorcycle,
+  FaMoneyCheckAlt,
 } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 import ProFastLogo from "../Pages/Shared/ProFastLogo/ProFastLogo";
@@ -59,6 +60,14 @@ const DashboardLayout = () => {
             className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
           >
             <FaMotorcycle size={18} /> {isSidebarOpen && <span>Riders</span>}
+          </Link>
+
+          <Link
+            to="payment-history"
+            className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
+          >
+            <FaMoneyCheckAlt size={18} />{" "}
+            {isSidebarOpen && <span>Payment History</span>}
           </Link>
 
           <Link

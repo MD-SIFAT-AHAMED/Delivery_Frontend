@@ -44,9 +44,8 @@ const Riders = () => {
       }),
     onSuccess: () => {
       toast.success("Rider reject successfully");
-      //  riders and info reload
+      //  riders reload
       queryClient.invalidateQueries(["riders"]);
-      queryClient.invalidateQueries(["riderInfo"]);
     },
     onError: () => {
       toast.error("Failed to reject rider");
