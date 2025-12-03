@@ -8,7 +8,6 @@ const RiderDeleteModal = ({ queryClient, data, title, message, onCancel }) => {
   // Delete parcel
   const deleteMutaion = useMutation({
     mutationFn: async (email) => {
-      console.log(email)
       const data = await axiosInstance.delete(
         `/api/v1/admin/delete-riderAppilcation?userEmail=${email}`
       );

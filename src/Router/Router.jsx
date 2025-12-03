@@ -23,6 +23,7 @@ import PaymentFail from "../Pages/Payment/PaymentFail";
 import Services from "../Pages/Home/Services/Services";
 import Parcel from "../Pages/Dashboard/Admin/Parcel/Parcel";
 import PaymentHistory from "../Pages/Dashboard/Admin/PaymentHistory/PaymentHistory";
+import AdminDashboard from "../Pages/Dashboard/Admin/AdminDashboard/AdminDashboard";
 
 const router = createBrowserRouter([
   {
@@ -131,6 +132,10 @@ const router = createBrowserRouter([
       </RoleProtectedRouter>
     ),
     children: [
+      {
+        path: "/dashboard",
+        Component: AdminDashboard,
+      },
       {
         path: "users",
         Component: Users,

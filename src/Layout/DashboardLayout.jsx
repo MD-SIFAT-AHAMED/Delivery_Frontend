@@ -42,7 +42,7 @@ const DashboardLayout = () => {
         {/* Menu */}
         <nav className="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
           <Link
-            to="/"
+            to="/dashboard"
             className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
           >
             <FaHome size={18} /> {isSidebarOpen && <span>Dashboard</span>}
