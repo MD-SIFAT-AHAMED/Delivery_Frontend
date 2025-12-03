@@ -10,11 +10,6 @@ import RiderDeleteModal from "./RiderDeleteModal";
 const Riders = () => {
   const axiosInstance = useAxiosSecure();
   const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false);
-  const [selectedEmail, setSelectedEmail] = useState(null);
-  const [deleteEmail, setDeleteEmail] = useState(null);
-  const [openModal, setOpenModal] = useState(false);
-
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteData, setDeleteData] = useState(null);
   const [riderData, setRiderData] = useState(null);
@@ -24,7 +19,6 @@ const Riders = () => {
     queryKey: ["riders"],
     queryFn: () => fetchRider(axiosInstance),
   });
-
 
   // Approve mutaion function
   const approveMutation = useMutation({
@@ -36,19 +30,28 @@ const Riders = () => {
       toast.success("Rider approved successfully");
       //  riders and info reload
       queryClient.invalidateQueries(["riders"]);
-      queryClient.invalidateQueries(["riderInfo"]);
     },
     onError: () => {
       toast.error("Failed to approve rider");
     },
   });
 
-  
-  //Details view handler
-  const handlerViewDeatils = (userEmail) => {
-    setSelectedEmail(userEmail);
-    setOpen(true);
-  };
+  // Reject mutaion function
+  const rejectMutation = useMutation({
+    mutationFn: (userEmail) =>
+      axiosInstance.put("/api/v1/admin/reject-riderAppilcation", {
+        userEmail,
+      }),
+    onSuccess: () => {
+      toast.success("Rider reject successfully");
+      //  riders and info reload
+      queryClient.invalidateQueries(["riders"]);
+      queryClient.invalidateQueries(["riderInfo"]);
+    },
+    onError: () => {
+      toast.error("Failed to reject rider");
+    },
+  });
 
   const handlerRiderApprove = (userEmail) => {
     approveMutation.mutate(userEmail);

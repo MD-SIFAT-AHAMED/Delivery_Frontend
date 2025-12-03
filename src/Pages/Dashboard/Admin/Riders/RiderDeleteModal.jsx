@@ -1,26 +1,23 @@
 import React from "react";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
-const RiderDeleteModal = ({
-  queryClient,
-  data,
-  title,
-  message,
-  onConfirm,
-  onCancel,
-}) => {
+const RiderDeleteModal = ({ queryClient, data, title, message, onCancel }) => {
   const axiosInstance = useAxiosSecure();
   // Delete parcel
   const deleteMutaion = useMutation({
-    mutationFn: () =>
-      axiosInstance.delete(
-        `/api/v1/admin/delete-riderAppilcation?userEmail=${data.email}`
-      ),
+    mutationFn: async (email) => {
+      console.log(email)
+      const data = await axiosInstance.delete(
+        `/api/v1/admin/delete-riderAppilcation?userEmail=${email}`
+      );
+      return data;
+    },
     onSuccess: () => {
       toast.success("Rider Delete Successfully");
       // parcels reload
-      queryClient.invalidateQueries("riders");
+      queryClient.invalidateQueries(["riders"]);
       onCancel();
     },
     onError: (err) => {
@@ -30,7 +27,7 @@ const RiderDeleteModal = ({
   });
 
   const handlerDeleteParcelConfrim = () => {
-    deleteMutaion.mutate();
+    deleteMutaion.mutate(data.email);
   };
 
   return (
