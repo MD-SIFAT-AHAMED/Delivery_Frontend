@@ -1,39 +1,36 @@
 import React from "react";
 import { useMutation } from "@tanstack/react-query";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import toast from "react-hot-toast";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
-const ConfirmDeleteModal = ({
+const RiderDeleteModal = ({
   queryClient,
   data,
   title,
   message,
+  onConfirm,
   onCancel,
 }) => {
   const axiosInstance = useAxiosSecure();
   // Delete parcel
   const deleteMutaion = useMutation({
-    mutationFn: async (trackingId) => {
-      const data = await axiosInstance.delete(
-        `/api/v1/admin/delete-parcel?trakingId=${trackingId}`
-      );
-      return data;
-    },
-
+    mutationFn: () =>
+      axiosInstance.delete(
+        `/api/v1/admin/delete-riderAppilcation?userEmail=${data.email}`
+      ),
     onSuccess: () => {
+      toast.success("Rider Delete Successfully");
       // parcels reload
-      queryClient.invalidateQueries(["parcels"]);
-      toast.success("Parcel Delete Successfully");
+      queryClient.invalidateQueries("riders");
       onCancel();
     },
     onError: (err) => {
-      toast.error("Failed to Delete Parcel");
+      toast.error("Failed to Delete", err);
       onCancel();
     },
   });
 
   const handlerDeleteParcelConfrim = () => {
-    deleteMutaion.mutate(data.trackingId);
+    deleteMutaion.mutate();
   };
 
   return (
@@ -70,4 +67,4 @@ const ConfirmDeleteModal = ({
   );
 };
 
-export default ConfirmDeleteModal;
+export default RiderDeleteModal;

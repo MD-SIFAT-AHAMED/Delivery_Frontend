@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchUsers, deleteUser, fetchUserInfo } from "../../../../Api/UserApi";
+import { fetchUsers, } from "../../../../Api/UserApi";
 import { FaEye, FaEdit, FaTrash, FaUserShield } from "react-icons/fa";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import DataTable from "../../../../Component/DataTable/DataTable";
 import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
-import ConfirmDeleteModal from "../../../../Component/ConfirmDeleteModal/ConfirmDeleteModal";
 import toast from "react-hot-toast";
+import UserDeleteModal from "./UserDeleteModal";
 
 const Users = () => {
   const queryClient = useQueryClient();
   const axiosInstance = useAxiosSecure();
   const [search, setSearch] = useState("");
-  const [selectEamail, setSelcectEmail] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [openConfrim, setOpenConfrim] = useState(false);
-  const [deleteEmail, setDeleteEmail] = useState(null);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteData, setDeleteData] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [detailsModal, setDetailsModal] = useState(null);
 
   // Fetch users
   const { data, isLoading, refetch } = useQuery({
@@ -24,53 +24,9 @@ const Users = () => {
     enabled: true,
   });
 
-  // Fetch user info
-  const { data: userInfo } = useQuery({
-    queryKey: ["userInfo", selectEamail],
-    queryFn: () => fetchUserInfo(axiosInstance, selectEamail),
-    enabled: !!selectEamail,
-  });
-
-  // Delete mutation
-  const deleteMutation = useMutation({
-    mutationFn: (deleteEmail) =>
-      axiosInstance.delete(
-        `/api/v1/admin/delete-user?userEmail=${deleteEmail}`
-      ),
-    onSuccess: () => {
-      toast.success("User Delete Successfully");
-      //user and userInfo reload
-      queryClient.invalidateQueries("userInfo");
-      queryClient.invalidateQueries("users");
-    },
-    onError: (err) => {
-      toast.error("Failed to delete User", err);
-    },
-  });
-
   const searchUser = async () => {
     await refetch();
   };
-
-  // User Detail view
-  const handlerViewDetails = (userEmail) => {
-    setSelcectEmail(userEmail);
-    setOpen(true);
-  };
-
-  // Confrim delete
-  const handlerConfrimDelete = () => {
-    deleteMutation.mutate(deleteEmail);
-    setOpenConfrim(false);
-  };
-
-  const handlerDelete = (userEmail) => {
-    setDeleteEmail(userEmail);
-    setOpenConfrim(true);
-  };
-
-  if (isLoading)
-    return <span className="loading loading-spinner text-info"></span>;
 
   const columns = [
     { label: "#", key: "serial" },
@@ -109,7 +65,10 @@ const Users = () => {
       render: (_, row) => (
         <div className="flex gap-2 justify-center">
           <button
-            onClick={() => handlerViewDetails(row?.email)}
+            onClick={() => {
+              setDetailsModal(true);
+              setUserData(row);
+            }}
             className="btn btn-xs btn-info"
           >
             View
@@ -121,7 +80,10 @@ const Users = () => {
 
           <button
             className="btn btn-xs btn-error"
-            onClick={() => handlerDelete(row?.email)}
+            onClick={() => {
+              setDeleteData(row);
+              setDeleteModal(true);
+            }}
           >
             Delete
           </button>
@@ -150,19 +112,25 @@ const Users = () => {
       <div>
         <DataTable columns={columns} data={data} />
       </div>
-      {/* user details view */}
-      <DetailsModal
-        onClose={() => setOpen(false)}
-        open={open}
-        data={userInfo || []}
-        title={"User Details"}
-      />
-      {/* Delete confrim modal */}
-      <ConfirmDeleteModal
-        onConfirm={handlerConfrimDelete}
-        onCancel={() => setOpenConfrim(false)}
-        open={openConfrim}
-      />
+
+      {/* user details view Modal */}
+      {userData && detailsModal && (
+        <DetailsModal
+          data={userData}
+          onClose={() => setDetailsModal(false)}
+          title={"User Details"}
+        />
+      )}
+
+      {/* Confrim Delete modal */}
+      {deleteModal && deleteData && (
+        <UserDeleteModal
+          title={"Delete User"}
+          data={deleteData}
+          queryClient={queryClient}
+          onCancel={() => setDeleteModal(false)}
+        />
+      )}
     </div>
   );
 };

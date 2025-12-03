@@ -10,17 +10,17 @@ export const fetchParcels = async (axiosInstance) => {
   return result.data.data;
 };
 
-export const fetchRiderInfo = async (axiosInstance, userEmail) => {
-  const result = await axiosInstance.get(
-    `/api/v1/admin/rider-info?userEmail=${userEmail}`
-  );
-  return result.data.data;
-};
+// export const fetchRiderInfo = async (axiosInstance, userEmail) => {
+//   const result = await axiosInstance.get(
+//     `/api/v1/admin/rider-info?userEmail=${userEmail}`
+//   );
+//   return result.data.data;
+// };
 
-export const fetchParcelInfo = async (axiosInstance, trakingId) => {
-  const result = await axiosInstance.get(
-    `/api/v1/admin/parcel-info?trakingId=${trakingId}`
-  );
+// export const fetchParcelInfo = async (axiosInstance, trakingId) => {
+//   const result = await axiosInstance.get(
+//     `/api/v1/admin/parcel-info?trakingId=${trakingId}`
+//   );
 
-  return result.data.data[0];
-};
+//   return result.data.data[0];
+// };

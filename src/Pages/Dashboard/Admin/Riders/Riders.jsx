@@ -4,9 +4,8 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchRider } from "../../../../Api/RiderApi";
 import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
-import { fetchRiderInfo } from "../../../../Api/AdminApi";
 import toast from "react-hot-toast";
-import ConfirmDeleteModal from "../../../../Component/ConfirmDeleteModal/ConfirmDeleteModal";
+import RiderDeleteModal from "./RiderDeleteModal";
 
 const Riders = () => {
   const axiosInstance = useAxiosSecure();
@@ -16,16 +15,16 @@ const Riders = () => {
   const [deleteEmail, setDeleteEmail] = useState(null);
   const [openModal, setOpenModal] = useState(false);
 
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteData, setDeleteData] = useState(null);
+  const [riderData, setRiderData] = useState(null);
+  const [detailsModal, setDetailsModal] = useState(null);
+
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["riders"],
     queryFn: () => fetchRider(axiosInstance),
   });
 
-  const { data: riderInfo } = useQuery({
-    queryKey: ["riderInfo", selectedEmail],
-    queryFn: () => fetchRiderInfo(axiosInstance, selectedEmail),
-    enabled: !!selectedEmail,
-  });
 
   // Approve mutaion function
   const approveMutation = useMutation({
@@ -44,40 +43,7 @@ const Riders = () => {
     },
   });
 
-  // Reject mutaion function
-  const rejectMutation = useMutation({
-    mutationFn: (userEmail) =>
-      axiosInstance.put("/api/v1/admin/reject-riderAppilcation", {
-        userEmail,
-      }),
-    onSuccess: () => {
-      toast.success("Rider reject successfully");
-      //  riders and info reload
-      queryClient.invalidateQueries(["riders"]);
-      queryClient.invalidateQueries(["riderInfo"]);
-    },
-    onError: () => {
-      toast.error("Failed to reject rider");
-    },
-  });
-
-  // Delete mutaion function
-  const deleteMutation = useMutation({
-    mutationFn: (userEmail) =>
-      axiosInstance.delete(
-        `/api/v1/admin/delete-riderAppilcation?userEmail=${userEmail}`
-      ),
-    onSuccess: () => {
-      toast.success("Application Delete successfully");
-      //  riders and info reload
-      queryClient.invalidateQueries(["riders"]);
-      queryClient.invalidateQueries(["riderInfo"]);
-    },
-    onError: () => {
-      toast.error("Failed to delete application");
-    },
-  });
-
+  
   //Details view handler
   const handlerViewDeatils = (userEmail) => {
     setSelectedEmail(userEmail);
@@ -90,16 +56,6 @@ const Riders = () => {
 
   const handlerRiderReject = (userEmail) => {
     rejectMutation.mutate(userEmail);
-  };
-
-  const handlerDeleteApplication = () => {
-    deleteMutation.mutate(deleteEmail);
-    setOpenModal(false);
-  };
-
-  const handleDelete = (userEmail) => {
-    setDeleteEmail(userEmail);
-    setOpenModal(true);
   };
 
   const columns = [
@@ -139,7 +95,10 @@ const Riders = () => {
       render: (_, row) => (
         <div className="flex gap-2 justify-center">
           <button
-            onClick={() => handlerViewDeatils(row?.email)}
+            onClick={() => {
+              setDetailsModal(true);
+              setRiderData(row);
+            }}
             className="btn btn-xs btn-info"
           >
             View
@@ -160,7 +119,10 @@ const Riders = () => {
           </button>
 
           <button
-            onClick={() => handleDelete(row?.email)}
+            onClick={() => {
+              setDeleteData(row);
+              setDeleteModal(true);
+            }}
             className="btn btn-xs btn-error"
           >
             Delete
@@ -174,20 +136,25 @@ const Riders = () => {
     <div>
       {/* Table */}
       <DataTable columns={columns} data={data} />
-      {/* Details Modal */}
-      <DetailsModal
-        open={open}
-        title={"Rider Application Details"}
-        data={riderInfo?.[0] || []}
-        onClose={() => setOpen(false)}
-      />
-      {/* Confirm delete modal */}
-      <ConfirmDeleteModal
-        title={"Delete Rider Application"}
-        onConfirm={handlerDeleteApplication}
-        onCancel={() => setOpenModal(false)}
-        open={openModal}
-      />
+
+      {/* Rider Details Modal */}
+      {riderData && detailsModal && (
+        <DetailsModal
+          data={riderData}
+          onClose={() => setDetailsModal(false)}
+          title={"Parcel Details"}
+        />
+      )}
+
+      {/* Confrim Delete modal */}
+      {deleteModal && deleteData && (
+        <RiderDeleteModal
+          title={"Delete Parcel"}
+          data={deleteData}
+          queryClient={queryClient}
+          onCancel={() => setDeleteModal(false)}
+        />
+      )}
     </div>
   );
 };

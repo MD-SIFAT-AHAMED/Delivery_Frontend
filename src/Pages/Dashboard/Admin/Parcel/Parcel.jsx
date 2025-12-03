@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import DataTable from "../../../../Component/DataTable/DataTable";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchParcelInfo, fetchParcels } from "../../../../Api/AdminApi";
 import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
 import ConfirmDeleteModal from "../../../../Component/ConfirmDeleteModal/ConfirmDeleteModal";
 import toast from "react-hot-toast";
 import ParcelStatusModal from "./ParcelStatusModal";
+import { fetchParcels } from "../../../../Api/AdminApi";
 
 const Parcel = () => {
   const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-  const [selecctTrackingId, setSelectTrackingId] = useState(null);
-  const [deleteTrakingId, setDeleteTrakingId] = useState(null);
-  const [isStatusModal, setIsStatusModal] = useState(false);
   const [statusData, setStatusData] = useState(null);
+  const [isStatusModal, setIsStatusModal] = useState(false);
+  const [parcelData, setParcelData] = useState(null);
+  const [detailsModal, setDetailsModal] = useState(null);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteData, setDeleteData] = useState(null);
 
   // Fetch parcels
   const axiosInstance = useAxiosSecure();
@@ -23,47 +23,6 @@ const Parcel = () => {
     queryKey: ["parcels"],
     queryFn: () => fetchParcels(axiosInstance),
   });
-
-  // Fetch parce info
-  const { data: parcelInfo } = useQuery({
-    queryKey: ["parelInfo"],
-    queryFn: () => fetchParcelInfo(axiosInstance, selecctTrackingId),
-    enabled: !!selecctTrackingId,
-  });
-
-  // Delete parcel
-  const deleteMutaion = useMutation({
-    mutationFn: () =>
-      axiosInstance.delete(
-        `/api/v1/admin/delete-parcel?trakingId=${deleteTrakingId}`
-      ),
-    onSuccess: () => {
-      toast.success("Parcel Delete Successfully");
-      // parcels and parcel info reload
-      queryClient.invalidateQueries("parcels");
-      queryClient.invalidateQueries("parelInfo");
-    },
-    onError: (err) => {
-      toast.error("Failed to Delete Parcel", err);
-    },
-  });
-
-  const handlerParcelDetails = (trackingId) => {
-    setSelectTrackingId(trackingId);
-    setOpen(true);
-  };
-
-  const handlerDeleteParcelConfrim = () => {
-    deleteMutaion.mutate();
-    setOpenModal(false);
-  };
-
-  const handlerDeleteParcel = (trakingId) => {
-    setDeleteTrakingId(trakingId);
-    setOpenModal(true);
-  };
-
-   console.log(statusData);
 
   const columns = [
     { label: "#", key: "serial" },
@@ -122,7 +81,10 @@ const Parcel = () => {
       render: (_, row) => (
         <div className="flex gap-2 justify-center">
           <button
-            onClick={() => handlerParcelDetails(row?.trackingId)}
+            onClick={() => {
+              setDetailsModal(true);
+              setParcelData(row);
+            }}
             className="btn btn-xs btn-info"
           >
             View
@@ -139,7 +101,10 @@ const Parcel = () => {
             Status
           </button>
           <button
-            onClick={() => handlerDeleteParcel(row?.trackingId)}
+            onClick={() => {
+              setDeleteData(row);
+              setDeleteModal(true);
+            }}
             className="btn btn-xs btn-error"
           >
             Delete
@@ -152,20 +117,26 @@ const Parcel = () => {
   return (
     <div>
       <DataTable columns={columns} data={data} />
+
       {/* parce info Modal */}
-      <DetailsModal
-        data={parcelInfo || []}
-        onClose={() => setOpen(false)}
-        title={"Parcel Details"}
-        open={open}
-      />
+      {parcelData && detailsModal && (
+        <DetailsModal
+          data={parcelData}
+          onClose={() => setDetailsModal(false)}
+          title={"Parcel Details"}
+        />
+      )}
+
       {/* Confrim Delete modal */}
-      <ConfirmDeleteModal
-        open={openModal}
-        title={"Delete Parcel"}
-        onConfirm={handlerDeleteParcelConfrim}
-        onCancel={() => setOpenModal(false)}
-      />
+      {deleteModal && deleteData && (
+        <ConfirmDeleteModal
+          title={"Delete Parcel"}
+          data={deleteData}
+          queryClient={queryClient}
+          onCancel={() => setDeleteModal(false)}
+        />
+      )}
+
       {/* Status modal */}
       {isStatusModal && statusData && (
         <ParcelStatusModal

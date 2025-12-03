@@ -1,39 +1,32 @@
 import React from "react";
 import { useMutation } from "@tanstack/react-query";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
-const ConfirmDeleteModal = ({
-  queryClient,
-  data,
-  title,
-  message,
-  onCancel,
-}) => {
+const UserDeleteModal = ({ queryClient, data, title, message, onCancel }) => {
   const axiosInstance = useAxiosSecure();
   // Delete parcel
   const deleteMutaion = useMutation({
-    mutationFn: async (trackingId) => {
+    mutationFn: async (email) => {
       const data = await axiosInstance.delete(
-        `/api/v1/admin/delete-parcel?trakingId=${trackingId}`
+        `/api/v1/admin/delete-user?userEmail=${email}`
       );
       return data;
     },
-
     onSuccess: () => {
-      // parcels reload
-      queryClient.invalidateQueries(["parcels"]);
-      toast.success("Parcel Delete Successfully");
+      // Users reload
+      queryClient.invalidateQueries(["users"]);
+      toast.success("User Delete Successfully");
       onCancel();
     },
     onError: (err) => {
-      toast.error("Failed to Delete Parcel");
+      toast.error("Failed to Delete User", err);
       onCancel();
     },
   });
 
   const handlerDeleteParcelConfrim = () => {
-    deleteMutaion.mutate(data.trackingId);
+    deleteMutaion.mutate(data.email);
   };
 
   return (
@@ -70,4 +63,4 @@ const ConfirmDeleteModal = ({
   );
 };
 
-export default ConfirmDeleteModal;
+export default UserDeleteModal;

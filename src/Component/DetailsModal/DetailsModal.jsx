@@ -1,8 +1,6 @@
 import React from "react";
 
-const DetailsModal = ({ open, title, onClose, data }) => {
-  if (!open) return null;
-
+const DetailsModal = ({ title, onClose, data }) => {
   return (
     <div className="fixed inset-0 bg-white/80 flex justify-center items-center z-50">
       <div className="bg-white p-6 rounded-lg  max-w-lg w-2xl shadow-2xl">
@@ -10,7 +8,7 @@ const DetailsModal = ({ open, title, onClose, data }) => {
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl text-[#03373d] font-semibold">{title}</h2>
           <button
-            onClick={(value) => onClose(!value)}
+            onClick={onClose}
             className="text-gray-500 font-bold text-xl hover:text-red-500"
           >
             X
@@ -31,7 +29,7 @@ const DetailsModal = ({ open, title, onClose, data }) => {
         {/* footer */}
         <div className="mt-4 text-right">
           <button
-            onClick={(value) => onClose(!value)}
+            onClick={onClose}
             className="px-4 py-2 bg-primary rounded hover:bg-primary/40"
           >
             Close
