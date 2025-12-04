@@ -48,7 +48,6 @@ const ParcelFilters = ({ filters, setFilters }) => {
         <option value="Rajshahi">Rajshahi</option>
         <option value="Barisal">Barisal</option>
         <option value="Mymensingh">Mymensingh</option>
-        {/* more */}
       </select>
 
       {/* Reset Button */}

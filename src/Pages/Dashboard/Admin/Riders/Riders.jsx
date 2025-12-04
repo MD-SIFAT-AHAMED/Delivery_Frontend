@@ -6,6 +6,7 @@ import { fetchRider } from "../../../../Api/RiderApi";
 import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
 import toast from "react-hot-toast";
 import RiderDeleteModal from "./RiderDeleteModal";
+import RiderFilters from "./RiderFilters";
 
 const Riders = () => {
   const axiosInstance = useAxiosSecure();
@@ -14,10 +15,12 @@ const Riders = () => {
   const [deleteData, setDeleteData] = useState(null);
   const [riderData, setRiderData] = useState(null);
   const [detailsModal, setDetailsModal] = useState(null);
-
+  const [filters, setFilters] = useState({
+    status: "",
+  });
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["riders"],
-    queryFn: () => fetchRider(axiosInstance),
+    queryKey: ["riders", filters],
+    queryFn: () => fetchRider(axiosInstance, filters),
   });
 
   // Approve mutaion function
@@ -136,7 +139,10 @@ const Riders = () => {
 
   return (
     <div>
-      {/* Table */}
+      {/* Filter */}
+      <RiderFilters setFilters={setFilters} filters={filters} />
+
+      {/*Rider Table */}
       <DataTable columns={columns} data={data} />
 
       {/* Rider Details Modal */}
