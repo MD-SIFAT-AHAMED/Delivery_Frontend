@@ -46,7 +46,6 @@ const AuthProvider = ({ children }) => {
           .post("api/v1/auth/jwt", userData)
           .then((res) => {
             const token = res.data.token;
-            console.log(token);
             localStorage.setItem("token", token);
           })
           .catch(() => {});

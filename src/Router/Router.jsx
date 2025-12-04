@@ -24,6 +24,7 @@ import Services from "../Pages/Home/Services/Services";
 import Parcel from "../Pages/Dashboard/Admin/Parcel/Parcel";
 import PaymentHistory from "../Pages/Dashboard/Admin/PaymentHistory/PaymentHistory";
 import AdminDashboard from "../Pages/Dashboard/Admin/AdminDashboard/AdminDashboard";
+import MyDeliveries from "../Pages/Dashboard/User/MyDeliveris/MyDeliveris";
 
 const router = createBrowserRouter([
   {
@@ -102,6 +103,14 @@ const router = createBrowserRouter([
           </PrivateRouter>
         ),
       },
+      {
+        path: "/my-deliveries",
+        element: (
+          <PrivateRouter>
+            <MyDeliveries />
+          </PrivateRouter>
+        ),
+      },
     ],
   },
   // AuthLayout
@@ -125,7 +134,7 @@ const router = createBrowserRouter([
   },
   //Dashboard Layout
   {
-    path: "/dashboard",
+    path: "/dashboard/",
     element: (
       <RoleProtectedRouter allowedRole={["admin", "rider"]}>
         <DashboardLayout />
@@ -133,7 +142,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/dashboard",
+        index: true,
         Component: AdminDashboard,
       },
       {

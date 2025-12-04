@@ -129,7 +129,7 @@ const Navber = () => {
                         ) : (
                           <li>
                             <Link
-                              to="/dashboard"
+                              to="/my-deliveries"
                               className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
                             >
                               <FiGrid className="text-gray-500" />

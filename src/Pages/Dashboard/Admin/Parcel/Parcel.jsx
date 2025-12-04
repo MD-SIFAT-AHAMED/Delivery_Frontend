@@ -9,6 +9,7 @@ import ParcelStatusModal from "./ParcelStatusModal";
 import { fetchParcels } from "../../../../Api/AdminApi";
 import AssignRiderModal from "./AssignRiderModal";
 import ParcelFilters from "./ParcelFilters";
+import NoData from "../../../../Component/NoData/NoData";
 
 const Parcel = () => {
   const queryClient = useQueryClient();
@@ -177,6 +178,7 @@ const Parcel = () => {
           refetch={refetch}
         />
       )}
+
     </div>
   );
 };

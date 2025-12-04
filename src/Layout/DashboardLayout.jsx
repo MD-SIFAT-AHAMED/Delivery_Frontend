@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import {
   FaBars,
   FaTimes,
@@ -41,58 +41,73 @@ const DashboardLayout = () => {
             <img className="w-9" src={logoImg} alt="" />
           )}
         </div>
-
-        {/* Menu */}
         <nav className="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
-          <Link
+          <NavLink
             to="/dashboard"
-            className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
+            className={({ isActive }) =>
+              `flex items-center gap-3 p-2 rounded transition ${
+                isActive ? " " : "hover:bg-base-300"
+              }`
+            }
           >
             <FaHome size={18} /> {isSidebarOpen && <span>Dashboard</span>}
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to="parcels"
-            className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
+            className={({ isActive }) =>
+              `flex items-center gap-3 p-2 rounded transition ${
+                isActive ? "bg-primary" : "hover:bg-base-300"
+              }`
+            }
           >
             <FaBox size={18} /> {isSidebarOpen && <span>Parcels</span>}
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to="riders"
-            className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
+            className={({ isActive }) =>
+              `flex items-center gap-3 p-2 rounded transition ${
+                isActive ? "bg-primary " : "hover:bg-base-300"
+              }`
+            }
           >
             <FaMotorcycle size={18} /> {isSidebarOpen && <span>Riders</span>}
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to="payment-history"
-            className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
+            className={({ isActive }) =>
+              `flex items-center gap-3 p-2 rounded transition ${
+                isActive ? "bg-primary " : "hover:bg-base-300"
+              }`
+            }
           >
             <FaMoneyCheckAlt size={18} />{" "}
             {isSidebarOpen && <span>Payment History</span>}
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to="users"
-            className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
+            className={({ isActive }) =>
+              `flex items-center gap-3 p-2 rounded transition ${
+                isActive ? "bg-primary " : "hover:bg-base-300"
+              }`
+            }
           >
             <FaUser size={18} /> {isSidebarOpen && <span>Users</span>}
-          </Link>
+          </NavLink>
 
-          <Link
-            to="admin"
-            className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
-          >
-            <RiAdminFill size={18} /> {isSidebarOpen && <span>Make Admin</span>}
-          </Link>
-
-          <Link
+          <NavLink
             to="/settings"
-            className="flex items-center gap-3 p-2 rounded hover:bg-base-300 transition"
+            className={({ isActive }) =>
+              `flex items-center gap-3 p-2 rounded transition ${
+                isActive ? "bg-primary " : "hover:bg-base-300"
+              }`
+            }
           >
             <FaCog size={18} /> {isSidebarOpen && <span>Settings</span>}
-          </Link>
+          </NavLink>
         </nav>
 
         <div className="p-4 border-t border-base-300">

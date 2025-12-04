@@ -94,7 +94,7 @@ const Users = () => {
 
   return (
     <div>
-      <div className="flex gap-2 items-center lg:justify-center py-3 ">
+      <div className="flex gap-2 items-center lg:justify-center py-3 md:mt-4">
         <input
           className="bg-base-200 focus:outline-primary text-center rounded-2xl px-3 lg:px-30  py-2 "
           placeholder="Enter username or email"

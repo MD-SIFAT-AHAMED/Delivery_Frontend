@@ -28,7 +28,7 @@ const PaymentSuccess = () => {
         )}
 
         <button
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate("/my-deliveries")}
           className="mt-6 px-6 py-3 font-semibold bg-green-500 text-white rounded-lg  hover:bg-green-600 transition-colors"
         >
           Go to My Parcel
