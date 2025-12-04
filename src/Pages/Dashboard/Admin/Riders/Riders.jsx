@@ -101,21 +101,21 @@ const Riders = () => {
               setDetailsModal(true);
               setRiderData(row);
             }}
-            className="btn btn-xs btn-info"
+            className="btn btn-xs text-white bg-sky-500"
           >
             View
           </button>
 
           <button
             onClick={() => handlerRiderApprove(row?.email)}
-            className="btn btn-xs btn-success"
+            className="btn btn-xs text-white bg-green-500"
           >
             Approve
           </button>
 
           <button
             onClick={() => handlerRiderReject(row?.email)}
-            className="btn btn-xs btn-warning"
+            className="btn btn-xs text-white bg-red-500"
           >
             Reject
           </button>
@@ -125,7 +125,7 @@ const Riders = () => {
               setDeleteData(row);
               setDeleteModal(true);
             }}
-            className="btn btn-xs btn-error"
+            className="btn btn-xs text-white bg-red-500"
           >
             Delete
           </button>

@@ -2,7 +2,7 @@ import React from "react";
 
 const DataTable = ({ columns, data }) => {
   return (
-    <div className="shadow-lg rounded-lg overflow-x-auto">
+    <div className="shadow-lg rounded-lg md:mt-5 overflow-x-auto">
       <table className="table w-full">
         <thead className="bg-base-200">
           <tr>

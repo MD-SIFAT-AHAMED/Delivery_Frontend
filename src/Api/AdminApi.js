@@ -5,8 +5,10 @@ export const fetchAdmin = async (axiosInstance) => {
   return result.data.data;
 };
 
-export const fetchParcels = async (axiosInstance) => {
-  const result = await axiosInstance.get("/api/v1/admin/get-all-parcels");
+export const fetchParcels = async (axiosInstance, filters) => {
+  const result = await axiosInstance.get("/api/v1/admin/get-all-parcels", {
+    params: filters,
+  });
   return result.data.data;
 };
 

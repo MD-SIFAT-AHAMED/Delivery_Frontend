@@ -70,28 +70,42 @@ const Navber = () => {
                 <ProFastLogo />
               </div>
 
-              <ul className="hidden lg:flex gap-4">{links}</ul>
+              <ul className="hidden lg:flex gap-4 bg-white shadow-md border border-gray-100 rounded-full px-5 py-3 hover:shadow-md transition">
+                {links}
+              </ul>
 
               {user ? (
-                <div ref={ref} className="relative ">
-                  <p
+                <div ref={ref} className="relative ml-4">
+                  {/* Trigger */}
+                  <button
                     onClick={() => setOpen(!open)}
-                    className="flex items-center gap-2 text-sm border px-3 py-2 rounded text-gray-700 font-medium cursor-pointer transition"
+                    className="flex items-center gap-2 bg-white md:shadow-md border border-gray-100 rounded-full px-3 py-3 hover:shadow-md transition"
                   >
-                    <FaUserCircle className="text-lg" />
-                    <span className="italic">
-                      Welcome,{" "}
+                    <FaUserCircle size={22} className="text-gray-700" />
+                    <span className="hidden sm:inline text-sm font-medium text-gray-700">
                       <span className="font-semibold">{user?.displayName}</span>
                     </span>
-                    <FaChevronDown className="text-xs opacity-80" />
-                  </p>
+                    <svg
+                      className={`w-3 h-3 ml-1 transition-transform duration-200 ${
+                        open ? "rotate-180" : "rotate-0"
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="3"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
 
                   {/* Dropdown menu */}
-
                   {open && (
-                    <div className="absolute  z-10 right-0 mt-2 w-44 bg-white shadow-md rounded-md group-hover:opacity-100 transition-opacity duration-200">
+                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-20">
                       <ul className="text-sm text-gray-700">
-                        {/* Profile */}
                         <li>
                           <Link
                             to="/profile"
@@ -102,7 +116,6 @@ const Navber = () => {
                           </Link>
                         </li>
 
-                        {/* Conditional dashboard or my deliveries */}
                         {role === "admin" || role === "rider" ? (
                           <li>
                             <Link
@@ -116,18 +129,18 @@ const Navber = () => {
                         ) : (
                           <li>
                             <Link
-                              // to="/my-deliveries"
                               to="/dashboard"
                               className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
                             >
-                              <FaBox className="text-gray-500" />
+                              <FiGrid className="text-gray-500" />
                               My Deliveries
                             </Link>
                           </li>
                         )}
 
-                        {/* Logout */}
-                        <LogoutButton />
+                        <li>
+                          <LogoutButton />
+                        </li>
                       </ul>
                     </div>
                   )}
@@ -135,14 +148,15 @@ const Navber = () => {
               ) : (
                 <div className="flex gap-2">
                   <Link
-                    to={"/signUp"}
-                    className="bg-primary text-gray-800 font-medium px-3 py-2 rounded-xl"
+                    to="/signUp"
+                    className="px-4 py-2 font-semibold text-white bg-primary/90 rounded-lg shadow-md hover:bg-primary transition-colors duration-200"
                   >
                     Sign Up
                   </Link>
+
                   <Link
-                    to={"/login"}
-                    className="bg-primary text-gray-800 px-3 py-2 rounded-xl font-medium"
+                    to="/login"
+                    className="px-4 py-2 font-semibold text-primary bg-white  border rounded-lg shadow-md transition-colors duration-200"
                   >
                     Log In
                   </Link>
@@ -161,6 +175,7 @@ const Navber = () => {
           ></label>
 
           <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 space-y-2">
+            <ProFastLogo />
             {links}
           </ul>
         </div>

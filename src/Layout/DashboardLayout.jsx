@@ -15,12 +15,15 @@ import { RiAdminFill } from "react-icons/ri";
 import ProFastLogo from "../Pages/Shared/ProFastLogo/ProFastLogo";
 import logoImg from "../assets/logo.png";
 import Users from "../Pages/Dashboard/Admin/Users/Users";
+import AdminWelcome from "../Pages/Dashboard/AdminWelcome/AdminWelcome";
+import useAuth from "../Hooks/useAuth";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
-    <div className="flex w-full bg-base-100">
+    <div className="flex w-full min-w-screen bg-base-100">
       {/* Sidebar */}
       <aside
         className={`
@@ -31,7 +34,7 @@ const DashboardLayout = () => {
     `}
       >
         {/* Logo */}
-        <div className="py-[8px] border-b border-base-300 flex items-center justify-center">
+        <div className="py-[7px] md:py-[15px] border-b border-base-300 flex items-center justify-center">
           {isSidebarOpen ? (
             <ProFastLogo />
           ) : (
@@ -111,14 +114,21 @@ const DashboardLayout = () => {
     `}
       >
         {/* Header */}
-        <header className="navbar bg-base-200 px-4 fixed top-0 z-10">
-          <button
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="btn btn-ghost btn-square"
-          >
-            {isSidebarOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-          </button>
-          <h1 className="text-lg font-semibold ml-2">Dashboard</h1>
+        <header className="navbar flex justify-between gap-5 bg-base-200 px-4 fixed top-0 z-10">
+          <div className="flex items-center">
+            <button
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="btn btn-ghost btn-square"
+            >
+              {isSidebarOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+            </button>
+            <h1 className="text-lg md:text-2xl font-semibold ml-2">
+              Dashboard
+            </h1>
+          </div>
+          <div className="hidden md:flex relative right-20">
+            <AdminWelcome name={user?.displayName} />
+          </div>
         </header>
 
         {/* Page Content */}

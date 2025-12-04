@@ -7,6 +7,8 @@ import ConfirmDeleteModal from "../../../../Component/ConfirmDeleteModal/Confirm
 import toast from "react-hot-toast";
 import ParcelStatusModal from "./ParcelStatusModal";
 import { fetchParcels } from "../../../../Api/AdminApi";
+import AssignRiderModal from "./AssignRiderModal";
+import ParcelFilters from "./ParcelFilters";
 
 const Parcel = () => {
   const queryClient = useQueryClient();
@@ -16,12 +18,19 @@ const Parcel = () => {
   const [detailsModal, setDetailsModal] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteData, setDeleteData] = useState(null);
+  const [assignModal, setAssignModal] = useState(false);
+  const [selectedParcel, setSelectedParcel] = useState(null);
+  const [filters, setFilters] = useState({
+    delivery_status: "",
+    payment_status: "",
+    region: "",
+  });
 
   // Fetch parcels
   const axiosInstance = useAxiosSecure();
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["parcels"],
-    queryFn: () => fetchParcels(axiosInstance),
+    queryKey: ["parcels", filters],
+    queryFn: () => fetchParcels(axiosInstance, filters),
   });
 
   const columns = [
@@ -85,18 +94,28 @@ const Parcel = () => {
               setDetailsModal(true);
               setParcelData(row);
             }}
-            className="btn btn-xs btn-info"
+            className="btn btn-xs text-white bg-sky-600"
           >
             View
           </button>
-          <button className="btn btn-xs btn-warning">Edit</button>
-          <button className="btn btn-xs bg-amber-500">Assign Rider</button>
+
+          {/* <button className="btn btn-xs btn-warning">Edit</button> */}
+
+          <button
+            onClick={() => {
+              setSelectedParcel(row);
+              setAssignModal(true);
+            }}
+            className="btn btn-xs text-white bg-amber-500"
+          >
+            Assign Rider
+          </button>
           <button
             onClick={() => {
               setIsStatusModal(true);
               setStatusData(row);
             }}
-            className="btn btn-xs btn-success"
+            className="btn btn-xs text-white bg-green-500"
           >
             Status
           </button>
@@ -105,7 +124,7 @@ const Parcel = () => {
               setDeleteData(row);
               setDeleteModal(true);
             }}
-            className="btn btn-xs btn-error"
+            className="btn btn-xs text-white bg-red-600"
           >
             Delete
           </button>
@@ -116,6 +135,10 @@ const Parcel = () => {
 
   return (
     <div>
+      {/* Filter option */}
+      <ParcelFilters setFilters={setFilters} filters={filters} />
+
+      {/* Parcle Table */}
       <DataTable columns={columns} data={data} />
 
       {/* parce info Modal */}
@@ -143,6 +166,15 @@ const Parcel = () => {
           parcel={statusData}
           onClose={() => setIsStatusModal(false)}
           queryClient={queryClient}
+        />
+      )}
+      {/* AssignRider modal */}
+      {assignModal && selectedParcel && (
+        <AssignRiderModal
+          isOpen={assignModal}
+          onClose={() => setAssignModal(false)}
+          parcel={selectedParcel}
+          refetch={refetch}
         />
       )}
     </div>

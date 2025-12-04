@@ -42,13 +42,15 @@ const Admin = () => {
       headerClassName: "text-center",
       render: (_, row) => (
         <div className="flex gap-2 justify-center">
-          <button className="btn btn-xs btn-info">View</button>
+          <button className="btn btn-xs bg-sky-400 text-white">View</button>
 
-          <button className="btn btn-xs btn-success">Edit</button>
+          <button className="btn btn-xs bg-green-500 text-white">Edit</button>
 
-          <button className="btn btn-xs btn-warning">Role Change</button>
+          <button className="btn btn-xs bg-amber-500 text-white">
+            Role Change
+          </button>
 
-          <button className="btn btn-xs btn-error">Delete</button>
+          <button className="btn btn-xs bg-red-500 text-white">Delete</button>
         </div>
       ),
     },

@@ -69,7 +69,7 @@ const Users = () => {
               setDetailsModal(true);
               setUserData(row);
             }}
-            className="btn btn-xs btn-info"
+            className="btn btn-xs text-white bg-sky-500"
           >
             View
           </button>
@@ -79,7 +79,7 @@ const Users = () => {
           <button className="btn btn-xs btn-success">Change Role</button> */}
 
           <button
-            className="btn btn-xs btn-error"
+            className="btn btn-xs text-white bg-red-500"
             onClick={() => {
               setDeleteData(row);
               setDeleteModal(true);
