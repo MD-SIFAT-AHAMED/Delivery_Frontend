@@ -30,7 +30,7 @@ const DetailsModal = ({ title, onClose, data }) => {
         <div className="mt-4 text-right">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-primary rounded hover:bg-primary/40"
+            className="px-4 py-2 text-[#03373d] bg-primary rounded hover:bg-primary/40"
           >
             Close
           </button>

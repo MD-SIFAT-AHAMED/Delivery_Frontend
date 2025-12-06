@@ -13,7 +13,6 @@ const statusOptions = [
 ];
 
 const ParcelStatusModal = ({ parcel, onClose, queryClient }) => {
-    
   const axiosInstance = useAxiosSecure();
   const [status, setStatus] = useState(parcel.delivery_status);
 
@@ -62,11 +61,11 @@ const ParcelStatusModal = ({ parcel, onClose, queryClient }) => {
           ))}
         </select>
         <div className="flex justify-end gap-2">
-          <button className="btn btn-sm btn-outline" onClick={onClose}>
+          <button className="btn btn-sm " onClick={onClose}>
             Cancel
           </button>
           <button
-            className="btn btn-sm btn-primary text-black"
+            className="btn btn-sm btn-primary text-[#03373d]"
             onClick={handleSave}
             disabled={mutation.isLoading}
           >

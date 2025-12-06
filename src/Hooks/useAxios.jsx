@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://deliverybackend-production-5675.up.railway.app/",
 });
 const useAxios = () => {
   return axiosInstance;

@@ -84,7 +84,7 @@ const SignUp = () => {
 
   return (
     <div className="mt-10 md:mt-0">
-      <h3 className="text-2xl md:text-4xl font-bold">Create an Account</h3>
+      <h3 className="text-2xl mb-2 md:text-4xl font-bold">Create an Account</h3>
       <p className="font-medium">Register with Profast</p>
       {/* Upload Image Icon  */}
       <img
@@ -190,10 +190,10 @@ const SignUp = () => {
         </div>
 
         {/* Submit Button */}
-        <button className="btn btn-primary w-full text-black">Sign Up</button>
+        <button className="btn btn-primary w-full text-gray-700">Sign Up</button>
         <p className="text-base">
           Already have an account?{" "}
-          <Link className="text-primary underline" to={"/Login"}>
+          <Link className="text-[#03373d] underline" to={"/Login"}>
             Login
           </Link>
         </p>

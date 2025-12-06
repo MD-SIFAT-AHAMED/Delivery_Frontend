@@ -36,7 +36,7 @@ const Login = () => {
 
   return (
     <div className="mt-10 md:mt-0">
-      <h3 className="text-2xl md:text-4xl font-bold">Welcome Back</h3>
+      <h3 className="text-2xl mb-2 md:text-4xl font-bold">Welcome Back</h3>
       <p className="font-medium mb-4">Login with Profast</p>
 
       <form
@@ -69,7 +69,7 @@ const Login = () => {
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Password"
-            className="input input-bordered w-full pr-10"
+            className="input input-bordered mb-2 w-full pr-10"
             {...register("password", {
               required: "Password is required",
               minLength: { value: 6, message: "Minimum 6 characters" },
@@ -89,10 +89,10 @@ const Login = () => {
           </Link>
         </div>
         {/* Submit Button */}
-        <button className="btn btn-primary w-full text-black">Log In</button>
+        <button className="btn btn-primary w-full text-gray-700">LogIn</button>
         <p className="text-base">
           Don't have an account?{" "}
-          <Link className="text-primary underline" to={"/signUp"}>
+          <Link className="text-[#03373d] underline" to={"/signUp"}>
             SignUp
           </Link>
         </p>

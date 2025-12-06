@@ -112,7 +112,7 @@ const SendParcel = () => {
   // };
 
   return (
-    <div className="bg-gray-200 py-5">
+    <div className="bg-gray-100 py-5">
       <div className="max-w-screen-2xl w-11/12 bg-base-100 rounded-2xl mx-auto ">
         {/* From parcel */}
         <FromParcel

@@ -60,11 +60,11 @@ const AssignRiderModal = ({ isOpen, onClose, parcel, refetch }) => {
         </select>
 
         <div className="flex justify-end gap-3">
-          <button className="btn btn-ghost" onClick={onClose}>
+          <button className="btn bg-base-300 btn-ghost" onClick={onClose}>
             Cancel
           </button>
 
-          <button className="btn btn-primary" onClick={handleAssign}>
+          <button className="btn text-[#03373d] btn-primary" onClick={handleAssign}>
             Assign Rider
           </button>
         </div>

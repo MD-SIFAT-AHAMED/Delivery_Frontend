@@ -48,7 +48,7 @@ const FaqSection = () => {
           <div
             key={i}
             tabIndex={0}
-            className="collapse collapse-arrow  focus:border border-[#03373D] bg-base-100 focus:bg-[#e6f2f3] mb-3"
+            className="collapse collapse-arrow   border-[#03373D] bg-base-100 focus:bg-[#e6f2f3] mb-3"
           >
             <div className="collapse-title text-[#03373D] font-semibold">
               {faq.question}

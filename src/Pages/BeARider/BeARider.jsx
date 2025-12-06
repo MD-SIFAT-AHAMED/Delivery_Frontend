@@ -189,7 +189,9 @@ const BeARider = () => {
           <div className="mt-8">
             <button
               type="submit"
-              className="w-full bg-primary/85 hover:bg-primary text-[#03373D] font-semibold py-2 rounded-lg shadow-md transition"
+              className="w-full
+              btn-primary !text-gray-700 font-bold
+              bg-primary/85 hover:bg-primary   py-2 rounded-lg shadow-md transition"
             >
               Submit Application
             </button>

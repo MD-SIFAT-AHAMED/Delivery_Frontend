@@ -26,22 +26,64 @@ const Navber = () => {
   const links = (
     <>
       <li>
-        <NavLink to={"/"}>Home</NavLink>
+        <NavLink
+          onClick={() => {
+            document.getElementById("my-drawer").checked = false;
+          }}
+          to={"/"}
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/coverage"}>Coverage</NavLink>
+        <NavLink
+          onClick={() => {
+            document.getElementById("my-drawer").checked = false;
+          }}
+          to={"/coverage"}
+        >
+          Coverage
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/sendparcel"}>Send A Parcel</NavLink>
+        <NavLink
+          onClick={() => {
+            document.getElementById("my-drawer").checked = false;
+          }}
+          to={"/sendparcel"}
+        >
+          Send A Parcel
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/AboutUs"}>About Us</NavLink>
+        <NavLink
+          onClick={() => {
+            document.getElementById("my-drawer").checked = false;
+          }}
+          to={"/AboutUs"}
+        >
+          About Us
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/Pricing"}>Pricing</NavLink>
+        <NavLink
+          onClick={() => {
+            document.getElementById("my-drawer").checked = false;
+          }}
+          to={"/Pricing"}
+        >
+          Pricing
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/beARider"}>Be a Rider</NavLink>
+        <NavLink
+          onClick={() => {
+            document.getElementById("my-drawer").checked = false;
+          }}
+          to={"/beARider"}
+        >
+          Be a Rider
+        </NavLink>
       </li>
     </>
   );
