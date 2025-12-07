@@ -1,17 +1,31 @@
-# React + Vite
+# Delivery Management System – Online Parcel Delivery Platform
+#Live Demo: https://profast-webapp.web.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Status:** Ongoing – Rider dashboard ready; APIs, tables & settings in progress  
 
-Currently, two official plugins are available:
+A full-stack MERN platform designed for **Users, Riders, and Admins** to manage parcel delivery, tracking, and payments efficiently.  
+This project demonstrates multi-role authentication, secure payment integration, and structured data management using MySQL.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
+- **Multi-role Authentication:** Secure login and signup using **Firebase Auth & JWT**
+- **User (Customer) Features:** Create parcel requests, fill delivery forms, and make payments via **SSLCommerz**
+- **Admin Features:** Manage users, riders, and parcels
+- **Database:** Relational tables in **MySQL** for users, riders, parcels, and payments
+- **Backend Structure:** Initially implemented in a single `index.js` file for rapid development
 
-## React Compiler
+## In Progress
+- Rider dashboard features and UI enhancements
+- API development for dynamic data display
+- Database table creation and advanced settings management
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
+- **Frontend:** React.js, Tailwind CSS  
+- **Backend:** Node.js, Express.js  
+- **Database:** MySQL  
+- **Authentication:** Firebase Auth, JWT  
+- **Payment Gateway:** SSLCommerz  
 
-## Expanding the ESLint configuration
+## Getting Started
+To run the project locally:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# Delivery_Frontend
+
