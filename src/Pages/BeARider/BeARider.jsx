@@ -37,6 +37,7 @@ const BeARider = () => {
   const serviceData = useLoaderData();
   const allRegion = [...new Set(serviceData.map((d) => d.region))];
   const { user } = useAuth();
+  console.log(user)
 
   return (
     <section className="max-w-screen-2xl w-11/12 mx-auto px-6 py-12">

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import MainLayout from "../Layout/MainLayout";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Home from "../Pages/Home/Home/Home";
@@ -25,6 +25,12 @@ import Parcel from "../Pages/Dashboard/Admin/Parcel/Parcel";
 import PaymentHistory from "../Pages/Dashboard/Admin/PaymentHistory/PaymentHistory";
 import AdminDashboard from "../Pages/Dashboard/Admin/AdminDashboard/AdminDashboard";
 import MyDeliveries from "../Pages/Dashboard/User/MyDeliveris/MyDeliveris";
+import RiderDashboard from "../Pages/Dashboard/Rider/RiderDashboard/RiderDashboard";
+import DashboardDefault from "../Pages/Dashboard/DashboardDefault/DashboardDefault";
+import PendingParcel from "../Pages/Dashboard/Rider/PendingParcel/PendingParcel";
+import CompleteParcel from "../Pages/Dashboard/Rider/CompleteParcel/CompleteParcel";
+import AssignParcle from "../Pages/Dashboard/Rider/AssignParcle/AssignParcle";
+import Settings from "../Pages/Dashboard/Admin/settings/settings";
 
 const router = createBrowserRouter([
   {
@@ -134,36 +140,99 @@ const router = createBrowserRouter([
   },
   //Dashboard Layout
   {
-    path: "/dashboard/",
+    path: "dashboard",
     element: (
       <RoleProtectedRouter allowedRole={["admin", "rider"]}>
         <DashboardLayout />
       </RoleProtectedRouter>
     ),
     children: [
+      // Default Route
       {
         index: true,
-        Component: AdminDashboard,
+        element: <DashboardDefault />,
+      },
+      //  Admin routes
+      {
+        path: "admin",
+        element: (
+          <RoleProtectedRouter allowedRole={["admin"]}>
+            <AdminDashboard />
+          </RoleProtectedRouter>
+        ),
       },
       {
         path: "users",
-        Component: Users,
+        element: (
+          <RoleProtectedRouter allowedRole={["admin"]}>
+            <Users />
+          </RoleProtectedRouter>
+        ),
       },
       {
         path: "riders",
-        Component: Riders,
+        element: (
+          <RoleProtectedRouter allowedRole={["admin"]}>
+            <Riders />
+          </RoleProtectedRouter>
+        ),
       },
       {
         path: "payment-history",
-        Component: PaymentHistory,
-      },
-      {
-        path: "admin",
-        Component: Admin,
+        element: (
+          <RoleProtectedRouter allowedRole={["admin"]}>
+            <PaymentHistory />
+          </RoleProtectedRouter>
+        ),
       },
       {
         path: "parcels",
-        Component: Parcel,
+        element: (
+          <RoleProtectedRouter allowedRole={["admin"]}>
+            <Parcel />
+          </RoleProtectedRouter>
+        ),
+      },
+      {
+        path: "settings",
+        element: (
+          <RoleProtectedRouter allowedRole={["admin"]}>
+            <Settings />
+          </RoleProtectedRouter>
+        ),
+      },
+      // Rider Routes
+      {
+        path: "rider",
+        element: (
+          <RoleProtectedRouter allowedRole={["rider"]}>
+            <RiderDashboard />
+          </RoleProtectedRouter>
+        ),
+      },
+      {
+        path: "assign-parcel",
+        element: (
+          <RoleProtectedRouter allowedRole={["rider"]}>
+            <AssignParcle />
+          </RoleProtectedRouter>
+        ),
+      },
+      {
+        path: "complete-parcel",
+        element: (
+          <RoleProtectedRouter allowedRole={["rider"]}>
+            <CompleteParcel />
+          </RoleProtectedRouter>
+        ),
+      },
+      {
+        path: "pending-parcel",
+        element: (
+          <RoleProtectedRouter allowedRole={["rider"]}>
+            <PendingParcel />
+          </RoleProtectedRouter>
+        ),
       },
     ],
   },

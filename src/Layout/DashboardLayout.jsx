@@ -6,10 +6,13 @@ import {
   FaHome,
   FaUser,
   FaCog,
-  FaBox,
   FaSignOutAlt,
   FaMotorcycle,
   FaMoneyCheckAlt,
+  FaBox,
+  FaClipboardList,
+  FaCheckCircle,
+  FaHourglassHalf,
 } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 import ProFastLogo from "../Pages/Shared/ProFastLogo/ProFastLogo";
@@ -44,13 +47,14 @@ const DashboardLayout = () => {
           )}
         </div>
         <nav className="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
+          {/* Admin Route */}
           {!roleLoading && role === "admin" && (
             <>
               <NavLink
-                to="/dashboard"
+                to="/dashboard/admin"
                 className={({ isActive }) =>
                   `flex items-center gap-3 p-2 rounded transition ${
-                    isActive ? " " : "hover:bg-base-300"
+                    isActive ? " bg-primary" : "hover:bg-base-300"
                   }`
                 }
               >
@@ -104,7 +108,7 @@ const DashboardLayout = () => {
               </NavLink>
 
               <NavLink
-                to="/settings"
+                to="settings"
                 className={({ isActive }) =>
                   `flex items-center gap-3 p-2 rounded transition ${
                     isActive ? "bg-primary " : "hover:bg-base-300"
@@ -115,27 +119,55 @@ const DashboardLayout = () => {
               </NavLink>
             </>
           )}
+          {/* Rider Route */}
           {!roleLoading && role === "rider" && (
             <>
               <NavLink
-                to="/dashboard"
+                to="/dashboard/rider"
                 className={({ isActive }) =>
                   `flex items-center gap-3 p-2 rounded transition ${
-                    isActive ? " " : "hover:bg-base-300"
+                    isActive ? " bg-primary" : "hover:bg-base-300"
                   }`
                 }
               >
-                <FaHome size={18} /> {isSidebarOpen && <span>Dashboard</span>}
+                <FaHome size={18} />{" "}
+                {isSidebarOpen && <span>Dashboard</span>}
               </NavLink>
+
               <NavLink
-                to="/dashboard"
+                to="assign-parcel"
                 className={({ isActive }) =>
                   `flex items-center gap-3 p-2 rounded transition ${
-                    isActive ? " " : "hover:bg-base-300"
+                    isActive ? "bg-primary" : "hover:bg-base-300"
                   }`
                 }
               >
-                <FaBox size={18} /> {isSidebarOpen && <span>My Parcel</span>}
+                <FaClipboardList size={18} />
+                {isSidebarOpen && <span>Assign Parcel</span>}
+              </NavLink>
+
+              <NavLink
+                to="complete-parcel"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 p-2 rounded transition ${
+                    isActive ? "bg-primary" : "hover:bg-base-300"
+                  }`
+                }
+              >
+                <FaCheckCircle size={18} />
+                {isSidebarOpen && <span>Complete Parcel</span>}
+              </NavLink>
+
+              <NavLink
+                to="pending-parcel"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 p-2 rounded transition ${
+                    isActive ? "bg-primary" : "hover:bg-base-300"
+                  }`
+                }
+              >
+                <FaHourglassHalf size={18} />
+                {isSidebarOpen && <span>Pending Parcel</span>}
               </NavLink>
             </>
           )}
