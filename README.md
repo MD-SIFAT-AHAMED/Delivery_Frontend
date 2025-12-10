@@ -55,17 +55,14 @@ This platform enables users to send parcels easily, while admins and riders can 
 
 ⚙️ Technologies Used
 
-+---------------------------+     +-------------------------------+
-|        FRONTEND           |     |           BACKEND             |
-+---------------------------+     +-------------------------------+
-| • React.js               |     | • Express.js                  |
-| • Axios                 |     | • MySQL                     |
-| • React Hook Form       |     | • JWT Auth                  |
-| • TanStack Query        |     | • SSLCommerz Payment       |
-| • Tailwind CSS          |     |                             |
-| • DaisyUI               |     |                             |
-| • React Router          |     |                             |
-+---------------------------+     +-------------------------------+
-
+| **Frontend Technologies** | **Backend Technologies** |
+| ------------------------- | ------------------------ |
+| React.js                  | Express.js               |
+| Axios                     | MySQL                    |
+| React Hook Form           | JWT Authentication       |
+| TanStack Query            | SSLCommerz Payment       |
+| Tailwind CSS              | Node.js (Runtime)        |
+| DaisyUI                   | REST API                 |
+| React Router              |                          |
 
 
