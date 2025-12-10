@@ -28,11 +28,37 @@
   color: #03373d;
 } */
 
-
-
 * {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   /* font-weight: <weight>;
   font-style: normal; */
+}
+
+/* Scroll Bar */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e5f5b5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #caeb66;
+  border-radius: 10px;
+  border: 2px solid #e5f5b5;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a5cf61;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #caeb66 #f1f1f1;
 }

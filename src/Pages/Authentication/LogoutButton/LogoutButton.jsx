@@ -44,7 +44,7 @@ const LogoutButton = () => {
             <div className="flex justify-center gap-4">
               <button
                 onClick={() => setShowModal(false)}
-                className="px-4 py-2 rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100"
+                className="px-4 py-2 font-bold rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100"
               >
                 Cancel
               </button>
@@ -53,7 +53,7 @@ const LogoutButton = () => {
                   setShowModal(false);
                   handleLogoutConfrim();
                 }}
-                className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700"
+                className="px-4 py-2 font-bold rounded-md bg-red-600 text-white hover:bg-red-700"
               >
                 Confirm
               </button>
