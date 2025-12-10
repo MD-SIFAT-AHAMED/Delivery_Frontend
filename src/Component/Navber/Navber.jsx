@@ -65,7 +65,8 @@ const Navber = () => {
           About Us
         </NavLink>
       </li>
-      <li>
+      {/* Implement Todo */}
+      {/* <li>
         <NavLink
           onClick={() => {
             document.getElementById("my-drawer").checked = false;
@@ -74,7 +75,7 @@ const Navber = () => {
         >
           Pricing
         </NavLink>
-      </li>
+      </li> */}
       <li>
         <NavLink
           onClick={() => {
