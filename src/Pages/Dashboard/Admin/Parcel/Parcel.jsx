@@ -10,6 +10,7 @@ import { fetchParcels } from "../../../../Api/AdminApi";
 import AssignRiderModal from "./AssignRiderModal";
 import ParcelFilters from "./ParcelFilters";
 import NoData from "../../../../Component/NoData/NoData";
+import LoadingSpinner from "../../../../Component/LoadingSpinner/LoadingSpinner";
 
 const Parcel = () => {
   const queryClient = useQueryClient();
@@ -133,6 +134,8 @@ const Parcel = () => {
       ),
     },
   ];
+
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div>

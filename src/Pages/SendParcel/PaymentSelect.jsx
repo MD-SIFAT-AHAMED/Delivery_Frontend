@@ -11,7 +11,7 @@ const PaymentSelect = ({ onCOD, OnSSL, parcelData }) => {
       <div className="space-y-4">
         {/* COD BUTTON */}
         <button
-          onClick={() => onCOD()}
+          onClick={() => onCOD(parcelData)}
           className="w-full flex items-center justify-center gap-3 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl shadow-md hover:opacity-90 transition-all"
         >
           <FaMoneyBillWave size={22} />

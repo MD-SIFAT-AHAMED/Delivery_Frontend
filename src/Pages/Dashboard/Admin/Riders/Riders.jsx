@@ -7,6 +7,7 @@ import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
 import toast from "react-hot-toast";
 import RiderDeleteModal from "./RiderDeleteModal";
 import RiderFilters from "./RiderFilters";
+import LoadingSpinner from "../../../../Component/LoadingSpinner/LoadingSpinner";
 
 const Riders = () => {
   const axiosInstance = useAxiosSecure();
@@ -136,6 +137,8 @@ const Riders = () => {
       ),
     },
   ];
+
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div>

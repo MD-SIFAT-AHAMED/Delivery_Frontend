@@ -3,6 +3,7 @@ import DataTable from "../../../../Component/DataTable/DataTable";
 import { fetchAdmin } from "../../../../Api/AdminApi";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "../../../../Component/LoadingSpinner/LoadingSpinner";
 
 const Admin = () => {
   const axiosInstance = useAxiosSecure();
@@ -10,7 +11,7 @@ const Admin = () => {
     queryKey: ["adminList"],
     queryFn: () => fetchAdmin(axiosInstance),
   });
-  console.log(data);
+  if (isLoading) return <LoadingSpinner />;
   const columns = [
     { label: "#", key: "serial" },
     {

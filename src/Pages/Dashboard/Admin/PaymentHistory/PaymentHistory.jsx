@@ -3,13 +3,14 @@ import DataTable from "../../../../Component/DataTable/DataTable";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
+import LoadingSpinner from "../../../../Component/LoadingSpinner/LoadingSpinner";
 
 const PaymentHistory = () => {
   const axiosInstance = useAxiosSecure();
   const [open, setOpen] = useState(false);
   const [detailsData, setDetailsData] = useState(null);
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: "Payments",
     queryFn: async () => {
       const result = await axiosInstance.get("/api/v1/admin/payment-history");
@@ -17,6 +18,8 @@ const PaymentHistory = () => {
     },
     enabled: true,
   });
+
+  if (isLoading) return <LoadingSpinner />;
 
   const columns = [
     { label: "ID", key: "id" },

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import LoadingSpinner from "../../../../Component/LoadingSpinner/LoadingSpinner";
 
 const AssignRiderModal = ({ isOpen, onClose, parcel, refetch }) => {
   const axiosInstance = useAxiosSecure();
@@ -17,7 +18,8 @@ const AssignRiderModal = ({ isOpen, onClose, parcel, refetch }) => {
       });
     }
   }, [isOpen]);
-  console.log(parcel.id);
+  
+  if (loading) return <LoadingSpinner />;
 
   const handleAssign = async () => {
     if (!selectedRider) return toast.error("Select a rider!");

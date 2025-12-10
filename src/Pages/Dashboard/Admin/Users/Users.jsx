@@ -7,6 +7,7 @@ import DataTable from "../../../../Component/DataTable/DataTable";
 import DetailsModal from "../../../../Component/DetailsModal/DetailsModal";
 import toast from "react-hot-toast";
 import UserDeleteModal from "./UserDeleteModal";
+import LoadingSpinner from "../../../../Component/LoadingSpinner/LoadingSpinner";
 
 const Users = () => {
   const queryClient = useQueryClient();
@@ -23,6 +24,8 @@ const Users = () => {
     queryFn: () => fetchUsers(axiosInstance, search),
     enabled: true,
   });
+
+  if (isLoading) return <LoadingSpinner />;
 
   const searchUser = async () => {
     await refetch();

@@ -12,10 +12,11 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import StatCard from "./StatCard";
+import LoadingSpinner from "../../../../Component/LoadingSpinner/LoadingSpinner";
 
 const AdminDashboard = () => {
   const axiosInstance = useAxiosSecure();
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["totalSummay"],
     queryFn: async () => {
       const result = await axiosInstance.get("/api/v1/admin/total-summary");
@@ -23,6 +24,8 @@ const AdminDashboard = () => {
     },
     enabled: true,
   });
+
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div>

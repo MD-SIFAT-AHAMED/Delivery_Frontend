@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { FcViewDetails } from "react-icons/fc";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import ParcelSummary from "./ParcelSummary";
@@ -27,6 +27,7 @@ const SendParcel = () => {
   const allDistrict = useLoaderData();
   const axiosInstance = useAxiosSecure();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const type = watch("type");
   const senderRegion = watch("senderRegion");
@@ -86,30 +87,26 @@ const SendParcel = () => {
   };
 
   // Cash on Delivery
-  const onStripe = () => {};
-
-  // const confirmSubmit = (data) => {
-  //   const deliveryData = {
-  //     ...data,
-  //     cost: cost,
-  //     created_by: user.email,
-  //     delivery_status: "Not_collected",
-  //     payment_status: "UnPaid",
-  //     trackingId: GenerateTrackingId(),
-  //     creation_date: new Date().toISOString(),
-  //   };
-  //   setParcelData(deliveryData);
-
-  //   console.log(deliveryData);
-  //   // axiosSecure.post("/parcels", parcelData).then((res) => {
-  //   //   if (res.data.insertedId) {
-  //   //     console.log("Saving to DB:", parcelData);
-  //   //     toast.success("Parcel information saved successfully!");
-  //   //     // reset();
-  //   //     setShowConfirm(false);
-  //   //   }
-  //   // });
-  // };
+  const onCOD = async (parcelInfo) => {
+    try {
+      const deliveryData = {
+        ...parcelInfo,
+        weight: parcelData?.weight ? parseFloat(parcelData.weight) : null,
+        delivery_status: "Pending",
+        payment_status: "UnPaid",
+        created_by: user.email,
+      };
+      // Call API to save parcel and get trackingId
+      const trackingId = await PostParcelInfo(axiosInstance, deliveryData);
+      if (trackingId) {
+        setShowPayment(false);
+        toast.success("Your parcel request has been submitted successfully");
+        navigate("/my-deliveries");
+      }
+    } catch (error) {
+      toast.error("Failed to complete parcel");
+    }
+  };
 
   return (
     <div className="bg-gray-100 py-5">
@@ -142,7 +139,12 @@ const SendParcel = () => {
         {/* Payment modal */}
         {showPayment && (
           <div className="fixed bg-white inset-0  bg-opacity-30 flex justify-center items-center z-50">
-            <PaymentSelect parcelData={parcelData} cost={cost} OnSSL={OnSSL} />
+            <PaymentSelect
+              parcelData={parcelData}
+              cost={cost}
+              onCOD={onCOD}
+              OnSSL={OnSSL}
+            />
           </div>
         )}
       </div>
