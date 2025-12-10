@@ -6,78 +6,66 @@ This platform enables users to send parcels easily, while admins and riders can 
 
 🌐 Live Demo
 
-🔗 Frontend Live Link: (https://profast-webapp.web.app/)
+🔗 Frontend Live Link: https://profast-webapp.web.app/
 
 
 🔥 Key Features
+
 👤 User
 
-Secure registration and login
+-Secure registration and login
 
-Submit parcel requests with product and delivery details
+-Submit parcel requests with product and delivery details
 
-Choose payment method: Cash on Delivery (COD) or Online Payment (SSLCommerz)
+-Choose payment method: Cash on Delivery (COD) or Online Payment (SSLCommerz)
 
-Track parcel delivery status
+-Track parcel delivery status
 
-View parcel history
+-View parcel history
 
 🚴 Rider
 
-View assigned parcels
+-View assigned parcels
 
-Update delivery status (Picked, On The Way, Delivered)
+-Update delivery status (Picked, On The Way, Delivered)
 
-Manage completed deliveries
+-Manage completed deliveries
 
 🛠️ Admin
 
-Manage all parcel requests
+-Manage all parcel requests
 
-Assign riders
+-Assign riders
 
-Manage users and riders
+-Manage users and riders
 
-Monitor delivery operations
+-Monitor delivery operations
 
 🚀 Workflow Overview
 
-User creates a parcel request
+-User creates a parcel request
 
-User selects COD or Online Payment (SSLCommerz)
+-User selects COD or Online Payment (SSLCommerz)
 
-Admin assigns a rider
+-Admin assigns a rider
 
-Rider collects and delivers the parcel
+-Rider collects and delivers the parcel
 
-Status updates are reflected for both user and admin
+-Status updates are reflected for both user and admin
 
 ⚙️ Technologies Used
-🎨 Frontend
 
-React.js
-
-Axios
-
-React Hook Form
-
-TanStack Query
-
-Tailwind CSS
-
-DaisyUI
-
-React Router
-
-🖥️ Backend
-
-Express.js
-
-MySQL
-
-JWT Authentication
-
-SSLCommerz Payment Integration
++---------------------------+     +-------------------------------+
+|        FRONTEND           |     |           BACKEND             |
++---------------------------+     +-------------------------------+
+| • React.js               |     | • Express.js                  |
+| • Axios                 |     | • MySQL                     |
+| • React Hook Form       |     | • JWT Auth                  |
+| • TanStack Query        |     | • SSLCommerz Payment       |
+| • Tailwind CSS          |     |                             |
+| • DaisyUI               |     |                             |
+| • React Router          |     |                             |
++---------------------------+     +-------------------------------+
 
 
 
